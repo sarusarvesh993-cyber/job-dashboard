@@ -1,636 +1,288 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sarvesh Kommawar | AI & Data Engineer Portfolio</title>
-
-<!-- 3D & Animation Libraries (via CDN) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UAE Analyst Job Search - Sarvesh Kommawar</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-:root{
-  --bg:#050510;
-  --bg2:#0a0a1f;
-  --card:rgba(18,18,42,0.6);
-  --text:#e8e8ff;
-  --muted:#8888aa;
-  --primary:#6C63FF;
-  --accent:#00D4FF;
-  --neon:#00ff88;
-  --pink:#FF6584;
-}
-html{scroll-behavior:smooth;}
-body{
-  font-family:'Segoe UI',system-ui,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  overflow-x:hidden;
-  line-height:1.6;
-}
+ *{box-sizing:border-box;margin:0;padding:0}
+ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:#f4f6f8;color:#16212b;line-height:1.5;font-size:14px}
+ .wrap{max-width:1240px;margin:0 auto;padding:24px 18px 80px}
+ header{background:linear-gradient(135deg,#0f2e3d,#17505f 60%,#1d6f6a);color:#fff;padding:26px 28px;border-radius:14px;margin-bottom:18px}
+ header h1{font-size:21px;letter-spacing:.3px;font-weight:650}
+ header p{color:#c6dfe0;font-size:13px;margin-top:6px}
+ .pillrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+ .pill{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);padding:4px 10px;border-radius:999px;font-size:11.5px;color:#eaf6f5}
+ .warn{background:#fff8e6;border:1px solid #f0d69a;border-left:4px solid #d99b17;padding:12px 14px;border-radius:8px;font-size:12.5px;color:#5c4406;margin-bottom:18px}
+ .warn b{color:#3f2f02}
+ .grid{display:grid;grid-template-columns:255px 1fr;gap:18px;align-items:start}
+ @media(max-width:900px){.grid{grid-template-columns:1fr}}
+ .panel{background:#fff;border:1px solid #e2e8ee;border-radius:12px;padding:16px;margin-bottom:14px}
+ .panel h3{font-size:12px;text-transform:uppercase;letter-spacing:.7px;color:#5b6b7b;margin-bottom:10px;font-weight:700}
+ label{display:block;font-size:12px;color:#41505f;margin:10px 0 4px;font-weight:600}
+ select,input[type=text],input[type=number],textarea{width:100%;padding:7px 9px;border:1px solid #d3dce4;border-radius:7px;font-size:13px;font-family:inherit;background:#fff}
+ input[type=range]{width:100%}
+ .btn{display:inline-block;padding:8px 13px;border-radius:8px;border:1px solid #17505f;background:#17505f;color:#fff;font-size:12.5px;font-weight:600;cursor:pointer;text-decoration:none;text-align:center}
+ .btn.ghost{background:#fff;color:#17505f}
+ .btn:hover{opacity:.9}
+ .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+ @media(max-width:760px){.kpis{grid-template-columns:repeat(2,1fr)}}
+ .kpi{background:#fff;border:1px solid #e2e8ee;border-radius:10px;padding:12px 14px}
+ .kpi .n{font-size:22px;font-weight:700;color:#17505f}
+ .kpi .l{font-size:11px;color:#67788a;text-transform:uppercase;letter-spacing:.5px}
+ .card{background:#fff;border:1px solid #e2e8ee;border-radius:12px;padding:16px 18px;margin-bottom:12px}
+ .card.shortlist{border-left:4px solid #17866b}
+ .card.backup{border-left:4px solid #c58a1a}
+ .card.excluded{border-left:4px solid #b8c2cc;opacity:.82}
+ .card h4{font-size:15.5px;font-weight:650;color:#122b36}
+ .meta{font-size:12px;color:#67788a;margin-top:3px}
+ .tagrow{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+ .tag{font-size:11px;padding:2.5px 8px;border-radius:999px;background:#eef3f6;color:#3c4f5f;border:1px solid #dde6ec}
+ .tag.ok{background:#e9f7f1;color:#126b52;border-color:#bfe6d5}
+ .tag.gap{background:#fdeeee;color:#8d2020;border-color:#f2cfcf}
+ .tag.unk{background:#fff6e5;color:#7a5606;border-color:#f0dfb4}
+ .tag.track{background:#e9efff;color:#1f3f97;border-color:#cfd9f6}
+ .fitbar{display:flex;align-items:center;gap:10px;margin-top:10px}
+ .fitnum{font-size:20px;font-weight:700;min-width:52px}
+ .track{flex:1;height:7px;background:#edf1f4;border-radius:99px;overflow:hidden}
+ .track>i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#17866b,#2fb08b)}
+ .card.backup .track>i{background:linear-gradient(90deg,#c58a1a,#e0ae42)}
+ .card.excluded .track>i{background:linear-gradient(90deg,#9aa6b2,#c2ccd6)}
+ details{margin-top:10px;border-top:1px dashed #e2e8ee;padding-top:9px}
+ summary{cursor:pointer;font-size:12.5px;font-weight:650;color:#17505f;user-select:none}
+ .detail{margin-top:10px;font-size:12.5px;color:#33424f}
+ .detail h5{font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:#67788a;margin:11px 0 5px}
+ .detail ul{margin-left:16px}
+ .detail li{margin-bottom:4px}
+ .ev{color:#5b6b7b;font-style:italic}
+ .comp{display:grid;grid-template-columns:170px 1fr 42px;gap:7px;align-items:center;font-size:11.5px;color:#4a5a68;margin-bottom:4px}
+ .comp .b{height:6px;background:#edf1f4;border-radius:99px;overflow:hidden}
+ .comp .b>i{display:block;height:100%;background:#4a8fa8;border-radius:99px}
+ .statusbar{display:flex;gap:7px;flex-wrap:wrap;margin-top:11px;align-items:center}
+ .statusbar select{width:auto;font-size:12px;padding:5px 8px}
+ .actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:11px}
+ .muted{color:#7b8a99;font-size:11.5px}
+ .foot{margin-top:26px;font-size:11.5px;color:#7b8a99;line-height:1.6}
+ .hidden{display:none!important}
+ table.ats{width:100%;border-collapse:collapse;font-size:12.5px}
+ table.ats td{padding:6px 8px;border-bottom:1px solid #eef2f5;vertical-align:top}
+ .PASS{color:#126b52;font-weight:700}.FAIL{color:#a02a2a;font-weight:700}.PARTIAL{color:#8a6413;font-weight:700}
+ h2.sec{font-size:15px;margin:22px 0 10px;color:#122b36}
+</style></head><body><div class="wrap">
 
-/* ===== 3D BACKGROUND CANVAS ===== */
-#bg-canvas{
-  position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;
-}
+<header>
+  <h1>UAE Analyst Job Search &mdash; Sarvesh Kommawar</h1>
+  <p>Local dashboard. Nothing is sent anywhere: your saved states and notes live in this browser only.</p>
+  <div class="pillrow">
+    <span class="pill">Snapshot: 26 Oct 2026</span>
+    <span class="pill">29 roles reviewed</span>
+    <span class="pill">7 shortlisted</span>
+    <span class="pill">Dubai &middot; Abu Dhabi &middot; Sharjah</span>
+    <span class="pill">Fit = our estimate, not an employer ATS score</span>
+  </div>
+</header>
 
-/* ===== LOADER ===== */
-#loader{
-  position:fixed;inset:0;background:var(--bg);z-index:9999;
-  display:flex;align-items:center;justify-content:center;flex-direction:column;
-  transition:opacity 0.8s ease;
-}
-.loader-ring{
-  width:60px;height:60px;border:3px solid rgba(108,99,255,0.2);
-  border-top-color:var(--primary);border-radius:50%;
-  animation:spin 1s linear infinite;margin-bottom:20px;
-}
-@keyframes spin{to{transform:rotate(360deg);}}
-.loader-text{color:var(--muted);font-size:0.85rem;letter-spacing:3px;text-transform:uppercase;}
+<div class="warn"><b>How to read the fit number.</b> It is a transparent estimate of how well the <i>evidenced</i> content of your CV covers each advert. It is <b>not</b> an ATS result and no employer system was queried. Missing evidence is scored as <i>unknown</i> (0.35), not as a mismatch, unless the advert makes it mandatory. Always check the original advert before applying.</div>
 
-/* ===== NAVBAR ===== */
-nav{
-  position:fixed;top:0;width:100%;z-index:1000;
-  background:rgba(5,5,16,0.6);backdrop-filter:blur(16px);
-  padding:1.2rem 3rem;display:flex;justify-content:space-between;align-items:center;
-  border-bottom:1px solid rgba(108,99,255,0.15);
-  transition:padding 0.3s;
-}
-nav.scrolled{padding:0.8rem 3rem;background:rgba(5,5,16,0.9);}
-.logo{font-size:1.4rem;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1px;}
-.nav-links{display:flex;gap:2.2rem;list-style:none;}
-.nav-links a{color:var(--muted);text-decoration:none;font-size:0.9rem;font-weight:600;transition:color 0.3s;position:relative;}
-.nav-links a:hover{color:var(--accent);}
-.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--accent);transition:width 0.3s;}
-.nav-links a:hover::after{width:100%;}
+<div class="grid">
+  <div>
+    <div class="panel">
+      <h3>Filters</h3>
+      <label>Search title or company</label>
+      <input type="text" id="q" placeholder="e.g. power bi, pricing, Dubai">
+      <label>My review status</label>
+      <select id="fstatus">
+        <option value="">All reviewed roles</option>
+        <option value="shortlist">Shortlist</option>
+        <option value="backup">Backup</option>
+        <option value="excluded">Excluded (and why)</option>
+      </select>
+      <label>Emirate</label>
+      <select id="femirate"><option value="">All</option></select>
+      <label>Role family</label>
+      <select id="ffamily"><option value="">All</option></select>
+      <label>Minimum fit estimate: <b id="fitlbl">0</b></label>
+      <input type="range" id="ffit" min="0" max="90" value="0" step="5">
+      <label>Only my saved roles</label>
+      <select id="fsaved"><option value="">No</option><option value="1">Yes</option></select>
+      <div class="actions"><button class="btn ghost" id="resetBtn" type="button">Reset filters</button></div>
+    </div>
 
-/* ===== HERO ===== */
-#hero{
-  position:relative;z-index:2;min-height:100vh;
-  display:flex;align-items:center;justify-content:center;
-  text-align:center;padding:2rem;
-}
-.hero-glass{
-  background:rgba(10,10,31,0.35);backdrop-filter:blur(12px);
-  border:1px solid rgba(108,99,255,0.2);
-  border-radius:32px;padding:3.5rem 3rem;max-width:780px;
-  box-shadow:0 0 60px rgba(108,99,255,0.15);
-}
-.hero-badge{
-  display:inline-flex;align-items:center;gap:0.5rem;
-  background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);
-  color:var(--neon);padding:0.5rem 1.3rem;border-radius:50px;
-  font-size:0.8rem;margin-bottom:1.8rem;letter-spacing:1px;
-}
-.hero-badge .pulse{width:8px;height:8px;border-radius:50%;background:var(--neon);animation:pulse-dot 1.5s infinite;}
-@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.8);}}
-#hero h1{font-size:clamp(2.8rem,7vw,5rem);font-weight:900;line-height:1.05;margin-bottom:1rem;letter-spacing:-2px;}
-#hero h1 .grad{background:linear-gradient(135deg,var(--primary) 0%,var(--accent) 50%,var(--neon) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
-.hero-sub{font-size:1.25rem;color:var(--muted);max-width:560px;margin:0 auto 2.2rem;}
-.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
-.btn{padding:0.95rem 2.2rem;border-radius:12px;text-decoration:none;font-weight:700;font-size:0.95rem;transition:all 0.3s;cursor:pointer;border:none;}
-.btn-primary{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;box-shadow:0 8px 30px rgba(108,99,255,0.4);}
-.btn-primary:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(108,99,255,0.6);}
-.btn-ghost{background:transparent;color:var(--text);border:1px solid rgba(255,255,255,0.2);}
-.btn-ghost:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-3px);}
-.hero-stats{display:flex;gap:2.5rem;justify-content:center;margin-top:3rem;flex-wrap:wrap;}
-.stat{text-align:center;}
-.stat-num{font-size:2.4rem;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--neon));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
-.stat-label{font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;}
-.scroll-ind{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);color:var(--muted);font-size:1.5rem;animation:bounce 2s infinite;}
-@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(10px);}}
+    <div class="panel">
+      <h3>Application tracker</h3>
+      <div class="actions">
+        <button class="btn" id="exportCsv" type="button">Export tracker CSV</button>
+      </div>
+      <div class="actions"><button class="btn ghost" id="exportJson" type="button">Export JSON backup</button></div>
+      <p class="muted" style="margin-top:9px">Saved state, status and notes are stored with <code>localStorage</code> under the key <code>sk_jobs_v1</code>. Clearing browser data deletes them, so export a JSON backup weekly.</p>
+    </div>
 
-/* ===== SECTIONS ===== */
-section{position:relative;z-index:2;padding:6rem 2rem;max-width:1200px;margin:0 auto;}
-.sec-label{color:var(--accent);font-size:0.8rem;text-transform:uppercase;letter-spacing:3px;margin-bottom:0.6rem;font-weight:700;}
-.sec-title{font-size:clamp(2rem,5vw,3.2rem);font-weight:900;margin-bottom:1rem;letter-spacing:-1px;}
-.sec-title .grad{background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
-.sec-sub{color:var(--muted);font-size:1.1rem;max-width:620px;margin-bottom:3.5rem;}
+    <div class="panel">
+      <h3>Resume ATS-readability</h3>
+      <div style="font-size:26px;font-weight:700;color:#17505f">63<span style="font-size:13px;color:#67788a;font-weight:500">/100</span></div>
+      <p class="muted" style="margin-top:4px">Readable as raw text, risky as layout. Weighted rubric: 12 checks, layout failures cost the most.</p>
+      <div class="actions"><button class="btn ghost" id="showAts" type="button">Show 12 checks</button></div>
+    </div>
+  </div>
 
-/* ===== PROJECTS with 3D TILT ===== */
-.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:2rem;perspective:1500px;}
-.project-card{
-  background:var(--card);backdrop-filter:blur(12px);
-  border:1px solid rgba(108,99,255,0.2);border-radius:24px;
-  padding:2rem;transform-style:preserve-3d;transition:transform 0.2s ease-out,box-shadow 0.3s,border-color 0.3s;
-  position:relative;overflow:hidden;will-change:transform;
-}
-.project-card:hover{box-shadow:0 30px 60px rgba(0,0,0,0.5);border-color:rgba(0,212,255,0.5);}
-.project-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(108,99,255,0.15),transparent 60%);opacity:0;transition:opacity 0.3s;}
-.project-card:hover::before{opacity:1;}
-.pc-icon{font-size:2.8rem;margin-bottom:1.2rem;transform:translateZ(40px);}
-.pc-flag{display:inline-block;font-size:0.65rem;background:rgba(0,255,136,0.15);color:var(--neon);padding:0.25rem 0.6rem;border-radius:6px;margin-left:0.5rem;font-weight:800;vertical-align:middle;transform:translateZ(30px);}
-.pc-title{font-size:1.4rem;font-weight:800;margin-bottom:0.6rem;transform:translateZ(30px);}
-.pc-desc{color:var(--muted);font-size:0.92rem;margin-bottom:1.3rem;transform:translateZ(20px);}
-.pc-tags{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1.5rem;transform:translateZ(15px);}
-.pc-tags span{background:rgba(108,99,255,0.12);color:var(--primary);padding:0.3rem 0.8rem;border-radius:50px;font-size:0.72rem;font-weight:600;}
-.pc-links{display:flex;gap:0.8rem;flex-wrap:wrap;transform:translateZ(30px);}
-.pc-links a{text-decoration:none;font-size:0.85rem;font-weight:700;padding:0.6rem 1.1rem;border-radius:10px;transition:all 0.3s;}
-.live-link{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;}
-.live-link:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(108,99,255,0.4);}
-.code-link{background:rgba(255,255,255,0.06);color:var(--text);border:1px solid rgba(255,255,255,0.15);}
-.code-link:hover{border-color:var(--accent);color:var(--accent);}
-
-/* ===== SKILLS ===== */
-#skills{background:linear-gradient(180deg,transparent,rgba(108,99,255,0.04),transparent);max-width:100%;padding:6rem 2rem;}
-#skills .inner{max-width:1200px;margin:0 auto;}
-.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem;}
-.skill-cat{background:var(--card);backdrop-filter:blur(10px);border:1px solid rgba(108,99,255,0.15);border-radius:18px;padding:1.8rem;}
-.skill-cat h3{color:var(--accent);font-size:0.85rem;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:1.3rem;}
-.skill-item{margin-bottom:1.1rem;}
-.skill-name{display:flex;justify-content:space-between;font-size:0.85rem;margin-bottom:0.4rem;}
-.skill-bar{height:6px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;}
-.skill-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));border-radius:3px;width:0;transition:width 1.4s ease;}
-
-/* ===== EXPERIENCE TIMELINE ===== */
-.timeline{position:relative;padding-left:2.5rem;}
-.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--primary),var(--accent),transparent);}
-.tl-item{position:relative;margin-bottom:3rem;}
-.tl-dot{position:absolute;left:-2.9rem;top:0.3rem;width:16px;height:16px;border-radius:50%;background:var(--primary);box-shadow:0 0 15px rgba(108,99,255,0.6);}
-.tl-date{color:var(--accent);font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:0.3rem;}
-.tl-item h3{font-size:1.2rem;margin-bottom:0.2rem;}
-.tl-company{color:var(--primary);font-size:0.9rem;margin-bottom:0.8rem;}
-.tl-item ul{list-style:none;}
-.tl-item li{color:var(--muted);font-size:0.88rem;padding:0.3rem 0 0.3rem 1.3rem;position:relative;}
-.tl-item li::before{content:'▸';position:absolute;left:0;color:var(--accent);}
-
-/* ===== CONTACT ===== */
-#contact{text-align:center;background:linear-gradient(180deg,transparent,rgba(108,99,255,0.05));max-width:100%;padding:7rem 2rem;}
-#contact .inner{max-width:700px;margin:0 auto;}
-.contact-links{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2.5rem;}
-.contact-link{background:var(--card);backdrop-filter:blur(10px);border:1px solid rgba(108,99,255,0.2);color:var(--text);padding:1rem 1.8rem;border-radius:14px;text-decoration:none;font-weight:600;font-size:0.9rem;transition:all 0.3s;display:flex;align-items:center;gap:0.6rem;}
-.contact-link:hover{transform:translateY(-4px);background:var(--primary);border-color:var(--primary);box-shadow:0 12px 30px rgba(108,99,255,0.4);}
-footer{text-align:center;padding:2.5rem;color:var(--muted);font-size:0.82rem;border-top:1px solid rgba(255,255,255,0.05);position:relative;z-index:2;}
-
-/* reveal animation base */
-.reveal{opacity:0;transform:translateY(40px);}
-
-/* ===== CUSTOM CURSOR + GLOW TRAIL ===== */
-*{cursor:none !important;}
-.cursor-dot,.cursor-ring{position:fixed;top:0;left:0;border-radius:50%;pointer-events:none;z-index:10000;mix-blend-mode:screen;will-change:transform;}
-.cursor-dot{width:8px;height:8px;background:#00ff88;box-shadow:0 0 10px #00ff88,0 0 22px #00D4FF;margin:-4px 0 0 -4px;}
-.cursor-ring{width:36px;height:36px;border:2px solid rgba(0,212,255,0.7);box-shadow:0 0 18px rgba(0,212,255,0.45),inset 0 0 12px rgba(108,99,255,0.25);margin:-18px 0 0 -18px;transition:width 0.25s,height 0.25s,background 0.25s,border-color 0.25s;}
-.cursor-ring.hover{width:64px;height:64px;background:rgba(108,99,255,0.18);border-color:rgba(108,99,255,0.9);margin:-32px 0 0 -32px;}
-.trail{position:fixed;border-radius:50%;pointer-events:none;z-index:9999;mix-blend-mode:screen;will-change:transform,opacity;}
-@media (hover:none),(pointer:coarse){*{cursor:auto !important;}.cursor-dot,.cursor-ring{display:none;}}
-
-@media(max-width:768px){
-  nav{padding:1rem 1.5rem;}
-  .nav-links{display:none;}
-  .hero-glass{padding:2.5rem 1.5rem;}
-  section{padding:4rem 1.5rem;}
-}
-</style>
-</head>
-<body>
-
-<!-- CUSTOM CURSOR -->
-<div class="cursor-dot" id="cursorDot"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-
-<!-- LOADER -->
-<div id="loader">
-  <div class="loader-ring"></div>
-  <div class="loader-text">Loading Portfolio</div>
+  <div>
+    <div class="kpis">
+      <div class="kpi"><div class="n" id="kTotal">0</div><div class="l">shown</div></div>
+      <div class="kpi"><div class="n" id="kSaved">0</div><div class="l">saved</div></div>
+      <div class="kpi"><div class="n" id="kApplied">0</div><div class="l">applied</div></div>
+      <div class="kpi"><div class="n" id="kAvg">0</div><div class="l">avg fit shown</div></div>
+    </div>
+    <div id="list"></div>
+  </div>
 </div>
 
-<!-- 3D BACKGROUND -->
-<canvas id="bg-canvas"></canvas>
-
-<!-- NAV -->
-<nav id="navbar">
-  <div class="logo">SK.</div>
-  <ul class="nav-links">
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<div id="hero">
-  <div class="hero-glass">
-    <div class="hero-badge"><span class="pulse"></span>Open to AI Engineer / Data Engineer Roles</div>
-    <h1>Hi, I'm Sarvesh<br><span class="grad">AI & Data Engineer</span></h1>
-    <p class="hero-sub">I turn ideas into shipped AI — from LLM agents and RAG pipelines to full-stack, cloud-native AI products. Not a tutorial-watcher. A builder.</p>
-    <div class="hero-btns">
-      <a href="#projects" class="btn btn-primary">View My Work</a>
-      <a href="#contact" class="btn btn-ghost">Get In Touch</a>
-    </div>
-    <div class="hero-stats">
-      <div class="stat"><div class="stat-num" data-count="5">0</div><div class="stat-label">Projects Deployed</div></div>
-      <div class="stat"><div class="stat-num" data-count="4">0</div><div class="stat-label">Live AI Apps</div></div>
-      <div class="stat"><div class="stat-num" data-count="2">0</div><div class="stat-label">Full-Stack Builds</div></div>
-    </div>
-  </div>
-  <div class="scroll-ind"><i class="fa-solid fa-chevron-down"></i></div>
+<div class="panel hidden" id="atsBox" style="margin-top:18px">
+  <h3>What an ATS parser does with this specific PDF</h3>
+  <table class="ats" id="atsTable"></table>
+  <p class="muted" style="margin-top:10px">Everything above was measured on the uploaded file, not guessed: text extraction, font list, link annotations, image count and the x/y position histogram of 671 words.</p>
 </div>
 
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="sec-label reveal">Portfolio</div>
-  <h2 class="sec-title reveal">Deployed AI <span class="grad">Projects</span></h2>
-  <p class="sec-sub reveal">Real builds, live and open-source. Hover any card — it tilts in 3D.</p>
-  <div class="projects-grid">
+<div class="foot">
+  Fit estimate weights: requirement coverage 38%, experience vs stated minimum 18%, seniority wording 12%, role-family 12%, domain overlap 8%, tool stack 7%, eligibility/logistics 5%, with hard ceilings when an advert demands years of experience you do not have. Confidence reflects description length, whether years were stated, and posting age &mdash; not the quality of your CV.<br><br>
+  Job data: public LinkedIn job listings captured on 26 Oct 2026 and each page re-opened to confirm it still showed an active Apply control. No listing dates, salaries or requirements were invented; where the advert did not state something, the field says so.
+</div>
+</div>
 
-    <div class="project-card reveal">
-      <div class="pc-icon">🛰️</div>
-      <div class="pc-title">OpsPilot v2 <span class="pc-flag">FLAGSHIP</span></div>
-      <div class="pc-desc">A cloud-native AI Copilot for DevSecOps & Cloud Infrastructure. Generates verified Terraform & CI/CD scripts, diagnoses Kubernetes logs, shows live telemetry, runs container security audits (CIS Benchmarks), and parses server logs. Built on Next.js 14 with multi-provider LLM routing + a Docker build under 120MB.</div>
-      <div class="pc-tags"><span>Next.js 14</span><span>Docker</span><span>Kubernetes</span><span>Terraform</span><span>Multi-LLM</span></div>
-      <div class="pc-links">
-        <a href="https://opspilot-v2.vercel.app/" target="_blank" class="live-link">▶ Live App</a>
-        <a href="https://github.com/sarusarvesh993-cyber/opspilot-v2" target="_blank" class="code-link">→ Code</a>
+<script>
+const JOBS = [{"id": "4482058996", "status": "shortlist", "title": "Junior Data Analyst", "company": "Udrive", "emirate": "Dubai", "location_raw": "Dubai, Dubai, United Arab Emirates", "arrangement": "On-site (not stated in ad) - Dubai", "industry": "Mobility / car rental", "employment_type": "Full-time", "seniority_listed": "Executive", "posted": "2026-10-22", "posted_ago": "4 days ago", "verified_on": "2026-10-26", "verification": "Page loaded and showed an active Apply control on 2026-10-26. No closing date stated in the ad.", "source": "LinkedIn public job listing (no login used)", "apply_url": "https://www.linkedin.com/jobs/view/4482058996", "fit": 80.5, "band": "Apply", "confidence": 0.75, "confidence_label": "High", "components": {"requirement_coverage": 0.843, "experience_alignment": 1.0, "seniority_alignment": 0.15, "role_family_alignment": 1.0, "domain_alignment": 0.75, "stack_overlap": 0.808, "eligibility_logistics": 1.0}, "seniority_stated": "Executive", "years_required": 0, "years_required_high": 2, "experience_note": "Meets stated minimum (0+ yrs) with 1.2 yrs", "role_family": "data_analyst", "flags": [], "matched": [{"skill": "SQL", "evidence": "MySQL, PostgreSQL, DuckDB; multi-CTE queries, complex joins, warehouse marts (public repo)"}, {"skill": "Excel (advanced)", "evidence": "Advanced (PivotTables, Power Query, XLOOKUP / VLOOKUP); Google Sheets"}, {"skill": "Power BI", "evidence": "10+ Power BI dashboards shipped; Power BI Workshop 2025"}, {"skill": "Python / pandas", "evidence": "Pandas for analysis; Python automation of checks and pipelines"}, {"skill": "Warehouse / dimensional modelling", "evidence": "Warehouse marts (public repo); SQL warehouse workflow in analytics suite"}, {"skill": "Data cleaning & validation", "evidence": "Cleaning, validation, reconciliation; 20,000+ records cleansed at Learnttechzo"}, {"skill": "Data quality & audits", "evidence": "5,000+ items validated to written standards; audits and standards enforcement"}, {"skill": "Reconciliation & root cause", "evidence": "120+ corrections closed to root cause at Innodata"}, {"skill": "KPI / recurring reporting", "evidence": "Weekly KPI reports; recurring Excel and Power BI reports owned end to end"}, {"skill": "Dashboards", "evidence": "10+ Power BI dashboards; also web dashboards (Next.js) in projects"}, {"skill": "Automation", "evidence": "Checks automated as scripts; report preparation automated"}, {"skill": "SOPs & documentation", "evidence": "Definitions and procedures documented as team SOPs"}], "partial": [{"skill": "Tableau", "evidence": "CV states Tableau is 'declared openly, not claimed'"}, {"skill": "Forecasting", "evidence": "Time-series forecasting; retail forecasting workflow"}, {"skill": "Segmentation", "evidence": "Customer segmentation workflow"}, {"skill": "Statistics", "evidence": "Economics with Statistics degree; back test, A/B testing"}, {"skill": "Plain-language stakeholder reporting", "evidence": "Plain-language readouts; weekly KPI summaries in plain language"}], "gaps": [], "unknown": [{"skill": "Snowflake", "note": "CV is silent; the ad does not make it mandatory"}, {"skill": "Commercial / GMV analytics", "note": "CV is silent; the ad does not make it mandatory"}], "keywords_supported": ["SQL", "Excel (advanced)", "Power BI", "Python / pandas", "Warehouse / dimensional modelling", "Data cleaning & validation", "Data quality & audits", "Reconciliation & root cause", "KPI / recurring reporting", "Dashboards", "Automation", "SOPs & documentation"], "notes": "Best single fit on the board: 0-2 years stated, SQL + Excel + Tableau dashboards + data quality + forecasting + segmentation, which is almost a line-by-line copy of the CV. Tableau is the only tool you cannot claim, and the ad lists it as the dashboard tool. 200+ applicants already, so speed and a tailored first line matter more than volume.", "caution": "Tableau dashboards are a core duty; CV only 'declares' Tableau. Do not claim it. Offer the Power BI-to-Tableau transfer plus the live Dubai dashboard as proof of dashboarding speed.", "desc_len": 4738}, {"id": "4446990050", "status": "shortlist", "title": "Data Analyst", "company": "EDGE", "emirate": "Abu Dhabi", "location_raw": "Abu Dhabi, Abu Dhabi Emirate, United Arab Emirates", "arrangement": "On-site (Abu Dhabi, not stated)", "industry": "Defence / aerospace", "employment_type": "Full-time", "seniority_listed": "Entry level", "posted": "2026-10-26", "posted_ago": "16 hours ago", "verified_on": "2026-10-26", "verification": "Page loaded and showed an active Apply control on 2026-10-26. No closing date stated in the ad.", "source": "LinkedIn public job listing (no login used)", "apply_url": "https://www.linkedin.com/jobs/view/4446990050", "fit": 79.0, "band": "Apply", "confidence": 0.6, "confidence_label": "Medium", "components": {"requirement_coverage": 0.733, "experience_alignment": 0.7, "seniority_alignment": 1.0, "role_family_alignment": 1.0, "domain_alignment": 0.75, "stack_overlap": 0.5, "eligibility_logistics": 1.0}, "seniority_stated": "Entry level", "years_required": null, "years_required_high": null, "experience_note": "No explicit years stated -> neutral, lower confidence", "role_family": "data_analyst", "flags": [], "matched": [{"skill": "Master data / deduplication", "evidence": "Duplicate and inconsistency resolution to golden records"}, {"skill": "UAE real estate data (DLD/Ejari/RERA)", "evidence": "Dubai Land Department sales + Ejari rent data; RERA rent slabs; KHDA school data"}], "partial": [{"skill": "Forecasting", "evidence": "Time-series forecasting; retail forecasting workflow"}, {"skill": "ERP / inventory data", "evidence": "CV states ERP and inventory data are 'adjacent through e-commerce datasets'"}], "gaps": [], "unknown": [], "keywords_supported": ["Master data / deduplication", "UAE real estate data (DLD/Ejari/RERA)"], "notes": "Entry level, Abu Dhabi. Heavily supply-chain: demand forecasting, stock levels, spares master data, inventory analysis. You have forecasting, master data and reconciliation evidence, but no defence or aviation spares exposure.", "caution": "Sector clearance and 'balance on hand' inventory vocabulary are unknown. Expect to be asked why defence.", "desc_len": 1659}, {"id": "4482661287", "status": "shortlist", "title": "Real Estate Analyst", "company": "Dune Strategy", "emirate": "Dubai", "location_raw": "Dubai, Dubai, United Arab Emirates", "arrangement": "Remote, working from Dubai", "industry": "Management consulting", "employment_type": "Full-time", "seniority_listed": "Entry level", "posted": "2026-10-25", "posted_ago": "1 day ago", "verified_on": "2026-10-26", "verification": "Page loaded and showed an active Apply control on 2026-10-26. No closing date stated in the ad.", "source": "LinkedIn public job listing (no login used)", "apply_url": "https://www.linkedin.com/jobs/view/4482661287", "fit": 77.3, "band": "Apply", "confidence": 0.6, "confidence_label": "Medium", "components": {"requirement_coverage": 0.838, "experience_alignment": 0.7, "seniority_alignment": 1.0, "role_family_alignment": 0.45, "domain_alignment": 0.867, "stack_overlap": 0.5, "eligibility_logistics": 1.0}, "seniority_stated": "Entry level", "years_required": null, "years_required_high": null, "experience_note": "No explicit years stated -> neutral, lower confidence", "role_family": "other", "flags": [], "matched": [{"skill": "Reconciliation & root cause", "evidence": "120+ corrections closed to root cause at Innodata"}, {"skill": "Pricing analysis", "evidence": "Comparable pricing bands published with a back test (DLD engine)"}, {"skill": "UAE real estate data (DLD/Ejari/RERA)", "evidence": "Dubai Land Department sales + Ejari rent data; RERA rent slabs; KHDA school data"}], "partial": [], "gaps": [], "unknown": [{"skill": "Commercial / GMV analytics", "note": "CV is silent; the ad does not make it mandatory"}], "keywords_supported": ["Reconciliation & root cause", "Pricing analysis", "UAE real estate data (DLD/Ejari/RERA)"], "notes": "Entry level, permanent, remote. The work described (reconciling counterparty figures against land registry data, pricing evidence, transaction comparables, occupancy and yield) is literally what the Dubai Property Decision Engine does on DLD data. Strongest narrative match on the board.", "caution": "Small firm, partner-facing writing standard. Expect a written exercise; the DLD project gives you a ready answer.", "desc_len": 4586}, {"id": "4480247581", "status": "shortlist", "title": "Commercial Strategy & Performance Analyst", "company": "Keeta", "emirate": "Dubai", "location_raw": "Dubai, United Arab Emirates", "arrangement": "On-site (Dubai)", "industry": "Food delivery / internet", "employment_type": "Full-time", "seniority_listed": "Associate", "posted": "2026-10-20", "posted_ago": "6 days ago", "verified_on": "2026-10-26", "verification": "Page loaded and showed an active Apply control on 2026-10-26. No closing date stated in the ad.", "source": "LinkedIn public job listing (no login used)", "apply_url": "https://www.linkedin.com/jobs/view/4480247581", "fit": 66, "band": "Apply after tailoring", "confidence": 0.75, "confidence_label": "High", "components": {"requirement_coverage": 0.872, "experience_alignment": 0.2, "seniority_alignment": 0.85, "role_family_alignment": 0.45, "domain_alignment": 0.783, "stack_overlap": 0.9, "eligibility_logistics": 1.0}, "seniority_stated": "Associate", "years_required": 3, "years_required_high": 5, "experience_note": "Far below stated minimum (3+ yrs)", "role_family": "other", "flags": [], "matched": [{"skill": "SQL", "evidence": "MySQL, PostgreSQL, DuckDB; multi-CTE queries, complex joins, warehouse marts (public repo)"}, {"skill": "Excel (advanced)", "evidence": "Advanced (PivotTables, Power Query, XLOOKUP / VLOOKUP); Google Sheets"}, {"skill": "Power BI", "evidence": "10+ Power BI dashboards shipped; Power BI Workshop 2025"}, {"skill": "Python / pandas", "evidence": "Pandas for analysis; Python automation of checks and pipelines"}, {"skill": "Data cleaning & validation", "evidence": "Cleaning, validation, reconciliation; 20,000+ records cleansed at Learnttechzo"}, {"skill": "Data quality & audits", "evidence": "5,000+ items validated to written standards; audits and standards enforcement"}, {"skill": "Reconciliation & root cause", "evidence": "120+ corrections closed to root cause at Innodata"}, {"skill": "KPI / recurring reporting", "evidence": "Weekly KPI reports; recurring Excel and Power BI reports owned end to end"}, {"skill": "Dashboards", "evidence": "10+ Power BI dashboards; also web dashboards (Next.js) in projects"}, {"skill": "Automation", "evidence": "Checks automated as scripts; report preparation automated"}, {"skill": "LLM / AI output validation", "evidence": "Stewardship for enterprise AI systems; validating AI-generated outputs against source data; 29-question AI evaluation"}], "partial": [{"skill": "Tableau", "evidence": "CV states Tableau is 'declared openly, not claimed'"}, {"skill": "Forecasting", "evidence": "Time-series forecasting; retail forecasting workflow"}, {"skill": "A/B testing", "evidence": "A/B testing (analytics suite)"}, {"skill": "Plain-language stakeholder reporting", "evidence": "Plain-language readouts; weekly KPI summaries in plain language"}], "gaps": [], "unknown": [{"skill": "Commercial / GMV analytics", "note": "CV is silent; the ad does not make it mandatory"}], "keywords_supported": ["SQL", "Excel (advanced)", "Power BI", "Python / pandas", "Data cleaning & validation", "Data quality & audits", "Reconciliation & root cause", "KPI / recurring reporting", "Dashboards", "Automation", "LLM / AI output validation"], "notes": "Associate level. Reports, KPI definitions, root-cause deep dives, commission calculations, and explicitly AI-assisted analytics and AI-enabled self-serve tools - that last part is unusual and matches your LLM/guardrail work plus your live AI applications directly.", "caution": "Commercial bonus/commission operations are new to him. Frame as data-quality plus reconciliation, which is exactly what commission validation is.", "desc_len": 4420}, {"id": "4478684357", "status": "shortlist", "title": "Data Analyst", "company": "Confidential Careers", "emirate": "Abu Dhabi", "location_raw": "Abu Dhabi, Abu Dhabi Emirate, United Arab Emirates", "arrangement": "On-site (Abu Dhabi)", "industry": "Healthcare group (via recruiter)", "employment_type": "Full-time", "seniority_listed": "Mid-Senior level", "posted": "2026-10-21", "posted_ago": "5 days ago", "verified_on": "2026-10-26", "verification": "Page loaded and showed an active Apply control on 2026-10-26. No closing date stated in the ad.", "source": "LinkedIn public job listing (no login used)", "apply_url": "https://www.linkedin.com/jobs/view/4478684357", "fit": 66, "band": "Apply after tailoring", "confidence": 0.6, "confidence_label": "Medium", "components": {"requirement_coverage": 0.86, "experience_alignment": 0.7, "seniority_alignment": 0.35, "role_family_alignment": 1.0, "domain_alignment": 0.613, "stack_overlap": 1.0, "eligibility_logistics": 1.0}, "seniority_stated": "Mid-Senior level", "years_required": null, "years_required_high": null, "experience_note": "No explicit years stated -> neutral, lower confidence", "role_family": "data_analyst", "flags": [], "matched": [{"skill": "Power BI", "evidence": "10+ Power BI dashboards shipped; Power BI Workshop 2025"}, {"skill": "Warehouse / dimensional modelling", "evidence": "Warehouse marts (public repo); SQL warehouse workflow in analytics suite"}, {"skill": "Data cleaning & validation", "evidence": "Cleaning, validation, reconciliation; 20,000+ records cleansed at Learnttechzo"}, {"skill": "Data quality & audits", "evidence": "5,000+ items validated to written standards; audits and standards enforcement"}, {"skill": "Reconciliation & root cause", "evidence": "120+ corrections closed to root cause at Innodata"}, {"skill": "KPI / recurring reporting", "evidence": "Weekly KPI reports; recurring Excel and Power BI reports owned end to end"}, {"skill": "Dashboards", "evidence": "10+ Power BI dashboards; also web dashboards (Next.js) in projects"}, {"skill": "Automation", "evidence": "Checks automated as scripts; report preparation automated"}], "partial": [{"skill": "Forecasting", "evidence": "Time-series forecasting; retail forecasting workflow"}, {"skill": "ERP / inventory data", "evidence": "CV states ERP and inventory data are 'adjacent through e-commerce datasets'"}], "gaps": [], "unknown": [{"skill": "Healthcare domain", "note": "CV is silent; the ad does not make it mandatory"}, {"skill": "Commercial / GMV analytics", "note": "CV is silent; the ad does not make it mandatory"}], "keywords_supported": ["Power BI", "Warehouse / dimensional modelling", "Data cleaning & validation", "Data quality & audits", "Reconciliation & root cause", "KPI / recurring reporting", "Dashboards", "Automation"], "notes": "Finance-flavoured data analyst in a hospital group: Power BI dashboards, multi-source validation, variance analysis, automated reporting. Power BI and validation are strong matches; healthcare finance and ERP are not evidenced.", "caution": "Recruiter-posted and unnamed employer. Confirm the client name before investing time. PL-300 is listed as advantageous, not required.", "desc_len": 1814}, {"id": "4473912316", "status": "shortlist", "title": "Pricing Analyst", "company": "Network International", "emirate": "UAE (emirate not stated)", "location_raw": "United Arab Emirates", "arrangement": "Not stated (UAE)", "industry": "Payments / fintech", "employment_type": "Full-time", "seniority_listed": "Mid-Senior level", "posted": "2026-10-23", "posted_ago": "3 days ago", "verified_on": "2026-10-26", "verification": "Page loaded and showed an active Apply control on 2026-10-26. No closing date stated in the ad.", "source": "LinkedIn public job listing (no login used)", "apply_url": "https://www.linkedin.com/jobs/view/4473912316", "fit": 62.5, "band": "Apply after tailoring", "confidence": 0.75, "confidence_label": "High", "components": {"requirement_coverage": 0.763, "experience_alignment": 0.2, "seniority_alignment": 0.35, "role_family_alignment": 0.8, "domain_alignment": 0.62, "stack_overlap": 0.87, "eligibility_logistics": 1.0}, "seniority_stated": "Mid-Senior level", "years_required": 3, "years_required_high": 5, "experience_note": "Far below stated minimum (3+ yrs)", "role_family": "pricing", "flags": [], "matched": [{"skill": "SQL", "evidence": "MySQL, PostgreSQL, DuckDB; multi-CTE queries, complex joins, warehouse marts (public repo)"}, {"skill": "Excel (advanced)", "evidence": "Advanced (PivotTables, Power Query, XLOOKUP / VLOOKUP); Google Sheets"}, {"skill": "Power BI", "evidence": "10+ Power BI dashboards shipped; Power BI Workshop 2025"}, {"skill": "Python / pandas", "evidence": "Pandas for analysis; Python automation of checks and pipelines"}, {"skill": "Data quality & audits", "evidence": "5,000+ items validated to written standards; audits and standards enforcement"}, {"skill": "Dashboards", "evidence": "10+ Power BI dashboards; also web dashboards (Next.js) in projects"}, {"skill": "SOPs & documentation", "evidence": "Definitions and procedures documented as team SOPs"}, {"skill": "Pricing analysis", "evidence": "Comparable pricing bands published with a back test (DLD engine)"}], "partial": [{"skill": "Segmentation", "evidence": "Customer segmentation workflow"}, {"skill": "Plain-language stakeholder reporting", "evidence": "Plain-language readouts; weekly KPI summaries in plain language"}], "gaps": [{"skill": "Banking domain", "note": "Named in the ad; no CV evidence - do not add unless real"}], "unknown": [{"skill": "DAX", "note": "CV is silent; the ad does not make it mandatory"}, {"skill": "Healthcare domain", "note": "CV is silent; the ad does not make it mandatory"}, {"skill": "Commercial / GMV analytics", "note": "CV is silent; the ad does not make it mandatory"}], "keywords_supported": ["SQL", "Excel (advanced)", "Power BI", "Python / pandas", "Data quality & audits", "Dashboards", "SOPs & documentation", "Pricing analysis"], "notes": "Pricing, fee adjustments, net revenue models, dashboards, large-data extraction, competitor analysis. Your pricing engine, back test and forecasting are real evidence; payments domain is new.", "caution": "Advert is listed as Mid-Senior. Expect a years-of-experience screen.", "desc_len": 3508}, {"id": "4480060147", "status": "shortlist", "title": "Data Analyst - Power BI & Tableau", "company": "Dubai Sotheby's International Realty", "emirate": "Dubai", "location_raw": "Dubai, United Arab Emirates", "arrangement": "On-site (Dubai)", "industry": "Real estate / luxury property", "employment_type": "Full-time", "seniority_listed": "Mid-Senior level", "posted": "2026-10-23", "posted_ago": "3 days ago", "verified_on": "2026-10-26", "verification": "Page loaded and showed an active Apply control on 2026-10-26. No closing date stated in the ad.", "source": "LinkedIn public job listing (no login used)", "apply_url": "https://www.linkedin.com/jobs/view/4480060147", "fit": 58, "band": "Lower priority", "confidence": 0.4, "confidence_label": "Low", "components": {"requirement_coverage": 0.77, "experience_alignment": 0.7, "seniority_alignment": 0.35, "role_family_alignment": 1.0, "domain_alignment": 1.0, "stack_overlap": 0.642, "eligibility_logistics": 1.0}, "seniority_stated": "Mid-Senior level", "years_required": null, "years_required_high": null, "experience_note": "No explicit years stated -> neutral, lower confidence", "role_family": "data_analyst", "flags": ["Mandated requirement with no CV evidence: power_automate"], "matched": [{"skill": "SQL", "evidence": "MySQL, PostgreSQL, DuckDB; multi-CTE queries, complex joins, warehouse marts (public repo)"}, {"skill": "Excel (advanced)", "evidence": "Advanced (PivotTables, Power Query, XLOOKUP / VLOOKUP); Google Sheets"}, {"skill": "Power BI", "evidence": "10+ Power BI dashboards shipped; Power BI Workshop 2025"}, {"skill": "Data cleaning & validation", "evidence": "Cleaning, validation, reconciliation; 20,000+ records cleansed at Learnttechzo"}, {"skill": "KPI / recurring reporting", "evidence": "Weekly KPI reports; recurring Excel and Power BI reports owned end to end"}, {"skill": "Dashboards", "evidence": "10+ Power BI dashboards; also web dashboards (Next.js) in projects"}, {"skill": "Automation", "evidence": "Checks automated as scripts; report preparation automated"}, {"skill": "UAE real estate data (DLD/Ejari/RERA)", "evidence": "Dubai Land Department sales + Ejari rent data; RERA rent slabs; KHDA school data"}], "partial": [{"skill": "Tableau", "evidence": "CV states Tableau is 'declared openly, not claimed'"}], "gaps": [{"skill": "Power Automate", "note": "Named in the ad; no CV evidence - do not add unless real"}, {"skill": "Salesforce", "note": "Named in the ad; no CV evidence - do not add unless real"}], "unknown": [{"skill": "DAX", "note": "CV is silent; the ad does not make it mandatory"}], "keywords_supported": ["SQL", "Excel (advanced)", "Power BI", "Data cleaning & validation", "KPI / recurring reporting", "Dashboards", "Automation", "UAE real estate data (DLD/Ejari/RERA)"], "notes": "Power BI, DAX, Power Query, SQL, Excel, monthly dashboards, Dubai real estate market data. Your DLD engine is direct industry evidence, and Power BI is your strongest tool. Gaps are Salesforce, Power Automate and AWS, none of which you have claimed.", "caution": "'Experience in the Dubai real estate industry is required' - yours is project-based, not employment. Lead with the 163,000-transaction dataset and the published back test.", "desc_len": 1194}, {"id": "4481417355", "status": "backup", "title": "Data Officer", "company": "Windmills Group", "emirate": "Dubai", "location_raw": "Dubai, Dubai, United Arab Emirates", "arrangement": "On-site (Dubai)", "industry": "Valuation / property advisory", "employment_type": "Full-time", "seniority_listed": "Entry level", "posted": "2026-10-26", "posted_ago": "2 hours ago", "verified_on": "2026-10-26", "verification": "Page loaded and showed an active Apply control on 2026-10-26. No closing date stated in the ad.", "source": "LinkedIn public job listing (no login used)", "apply_url": "https://www.linkedin.com/jobs/view/4481417355", "fit": 81.9, "band": "Apply", "confidence": 0.6, "confidence_label": "Medium", "components": {"requirement_coverage": 0.821, "experience_alignment": 0.7, "seniority_alignment": 1.0, "role_family_alignment": 0.9, "domain_alignment": 0.85, "stack_overlap": 0.5, "eligibility_logistics": 1.0}, "seniority_stated": "Entry level", "years_required": null, "years_required_high": null, "experience_note": "No explicit years stated -> neutral, lower confidence", "role_family": "data_quality", "flags": [], "matched": [{"skill": "Data cleaning & validation", "evidence": "Cleaning, validation, reconciliation; 20,000+ records cleansed at Learnttechzo"}, {"skill": "Master data / deduplication", "evidence": "Duplicate and inconsistency resolution to golden records"}, {"skill": "UAE real estate data (DLD/Ejari/RERA)", "evidence": "Dubai Land Department sales + Ejari rent data; RERA rent slabs; KHDA school data"}], "partial": [{"skill": "Plain-language stakeholder reporting", "evidence": "Plain-language readouts; weekly KPI summaries in plain language"}], "gaps": [], "unknown": [{"skill": "Commercial / GMV analytics", "note": "CV is silent; the ad does not make it mandatory"}], "keywords_supported": ["Data cleaning & validation", "Master data / deduplication", "UAE real estate data (DLD/Ejari/RERA)"], "notes": "Entry level and genuinely relevant to your Dubai property data work, but the core duty is transactional data entry (3,500 listings per month) rather than analysis. Useful as a fast, local-first landing job; a step below your analytical ceiling.", "caution": "Ask about the analysis share of the role before accepting.", "desc_len": 1977}, {"id": "4482925574", "status": "backup", "title": "Real Estate Data Analyst", "company": "Sphere Recruitment", "emirate": "Abu Dhabi", "location_raw": "Abu Dhabi Emirate, United Arab Emirates", "arrangement": "On-site (Abu Dhabi, not stated)", "industry": "Real estate", "employment_type": "Full-time", "seniority_listed": "Associate", "posted": "2026-10-26", "posted_ago": "1 hour ago", "verified_on": "2026-10-26", "verification": "Page loaded and showed an active Apply control on 2026-10-26. No closing date stated in the ad.", "source": "LinkedIn public job listing (no login used)", "apply_url": "https://www.linkedin.com/jobs/view/4482925574", "fit": 80.0, "band": "Apply", "confidence": 0.6, "confidence_label": "Medium", "components": {"requirement_coverage": 0.75, "experience_alignment": 0.7, "seniority_alignment": 0.85, "role_family_alignment": 1.0, "domain_alignment": 0.733, "stack_overlap": 0.833, "eligibility_logistics": 1.0}, "seniority_stated": "Associate", "years_required": null, "years_required_high": null, "experience_note": "No explicit years stated -> neutral, lower confidence", "role_family": "data_analyst", "flags": [], "matched": [{"skill": "Excel (advanced)", "evidence": "Advanced (PivotTables, Power Query, XLOOKUP / VLOOKUP); Google Sheets"}, {"skill": "Power BI", "evidence": "10+ Power BI dashboards shipped; Power BI Workshop 2025"}, {"skill": "Dashboards", "evidence": "10+ Power BI dashboards; also web dashboards (Next.js) in projects"}, {"skill": "UAE real estate data (DLD/Ejari/RERA)", "evidence": "Dubai Land Department sales + Ejari rent data; RERA rent slabs; KHDA school data"}], "partial": [{"skill": "Tableau", "evidence": "CV states Tableau is 'declared openly, not claimed'"}, {"skill": "Plain-language stakeholder reporting", "evidence": "Plain-language readouts; weekly KPI summaries in plain language"}], "gaps": [], "unknown": [{"skill": "Market / survey research", "note": "CV is silent; the ad does not make it mandatory"}, {"skill": "Commercial / GMV analytics", "note": "CV is silent; the ad does not make it mandatory"}], "keywords_supported": ["Excel (advanced)", "Power BI", "Dashboards", "UAE real estate data (DLD/Ejari/RERA)"], "notes": "Listed as Senior Associate, up to AED 30,000, Abu Dhabi real estate market intelligence. The salary band signals a more senior hire than 14 months of experience. Your DLD engine is genuine, strong evidence for the substance of the work.", "caution": "Apply only with a short, evidence-led pitch; do not apply with the master CV as-is.", "desc_len": 1344}, {"id": "4471494684", "status": "backup", "title": "Market Research Executive", "company": "Worldpanel", "emirate": "Dubai", "location_raw": "Dubai, United Arab Emirates", "arrangement": "On-site (Dubai)", "industry": "Consumer panel / market research", "employment_type": "Full-time", "seniority_listed": "Associate", "posted": "2026-10-25", "posted_ago": "1 day ago", "verified_on": "2026-10-26", "verification": "Page loaded and showed an active Apply control on 2026-10-26. No closing date stated in the ad.", "source": "LinkedIn public job listing (no login used)", "apply_url": "https://www.linkedin.com/jobs/view/4471494684", "fit": 66.7, "band": "Apply after tailoring", "confidence": 0.6, "confidence_label": "Medium", "components": {"requirement_coverage": 0.683, "experience_alignment": 0.7, "seniority_alignment": 0.85, "role_family_alignment": 0.45, "domain_alignment": 0.5, "stack_overlap": 0.5, "eligibility_logistics": 1.0}, "seniority_stated": "Associate", "years_required": null, "years_required_high": null, "experience_note": "No explicit years stated -> neutral, lower confidence", "role_family": "other", "flags": [], "matched": [{"skill": "Data cleaning & validation", "evidence": "Cleaning, validation, reconciliation; 20,000+ records cleansed at Learnttechzo"}], "partial": [{"skill": "Plain-language stakeholder reporting", "evidence": "Plain-language readouts; weekly KPI summaries in plain language"}], "gaps": [], "unknown": [{"skill": "Market / survey research", "note": "CV is silent; the ad does not make it mandatory"}], "keywords_supported": ["Data cleaning & validation"], "notes": "Worldpanel (Numerator). Consumer panel insights delivery. Degree-relevant, but the ad is Associate/Mid and panel research experience is not on your CV.", "caution": "Worth a tailored application only if you want market research as a career path.", "desc_len": 4461}, {"id": "4481965206", "status": "backup", "title": "Market Research Associate", "company": "Dune Strategy", "emirate": "Dubai", "location_raw": "Dubai, Dubai, United Arab Emirates", "arrangement": "Fully remote from Dubai", "industry": "Management consulting", "employment_type": "Full-time", "seniority_listed": "Entry level", "posted": "2026-10-24", "posted_ago": "2 days ago", "verified_on": "2026-10-26", "verification": "Page loaded and showed an active Apply control on 2026-10-26. No closing date stated in the ad.", "source": "LinkedIn public job listing (no login used)", "apply_url": "https://www.linkedin.com/jobs/view/4481965206", "fit": 66.6, "band": "Apply after tailoring", "confidence": 0.6, "confidence_label": "Medium", "components": {"requirement_coverage": 0.61, "experience_alignment": 0.7, "seniority_alignment": 1.0, "role_family_alignment": 0.45, "domain_alignment": 0.613, "stack_overlap": 0.5, "eligibility_logistics": 1.0}, "seniority_stated": "Entry level", "years_required": null, "years_required_high": null, "experience_note": "No explicit years stated -> neutral, lower confidence", "role_family": "other", "flags": [], "matched": [{"skill": "Dashboards", "evidence": "10+ Power BI dashboards; also web dashboards (Next.js) in projects"}, {"skill": "UAE real estate data (DLD/Ejari/RERA)", "evidence": "Dubai Land Department sales + Ejari rent data; RERA rent slabs; KHDA school data"}], "partial": [], "gaps": [], "unknown": [{"skill": "Banking domain", "note": "CV is silent; the ad does not make it mandatory"}, {"skill": "Market / survey research", "note": "CV is silent; the ad does not make it mandatory"}, {"skill": "Commercial / GMV analytics", "note": "CV is silent; the ad does not make it mandatory"}], "keywords_supported": ["Dashboards", "UAE real estate data (DLD/Ejari/RERA)"], "notes": "Entry level, fully remote. Paid-click and search-demand datasets, competitor mapping, briefing material for partners. Data assembly and verification are a good fit; paid-search analytics is not evidenced.", "caution": "Same firm as the Real Estate Analyst role - apply to one, mention the other.", "desc_len": 3538}, {"id": "4481567198", "status": "backup", "title": "Data Analyst", "company": "MedNet Global Healthcare Solutions LLC", "emirate": "Dubai", "location_raw": "Dubai, Dubai, United Arab Emirates", "arrangement": "On-site (Dubai)", "industry": "Insurance / managed care", "employment_type": "Full-time", "seniority_listed": "Mid-Senior level", "posted": "2026-10-21", "posted_ago": "5 days ago", "verified_on": "2026-10-26", "verification": "Page loaded and showed an active Apply control on 2026-10-26. No closing date stated in the ad.", "source": "LinkedIn public job listing (no login used)", "apply_url": "https://www.linkedin.com/jobs/view/4481567198", "fit": 66, "band": "Apply after tailoring", "confidence": 0.75, "confidence_label": "High", "components": {"requirement_coverage": 0.842, "experience_alignment": 0.2, "seniority_alignment": 0.35, "role_family_alignment": 1.0, "domain_alignment": 0.45, "stack_overlap": 0.9, "eligibility_logistics": 1.0}, "seniority_stated": "Mid-Senior level", "years_required": 3, "years_required_high": 4, "experience_note": "Far below stated minimum (3+ yrs)", "role_family": "data_analyst", "flags": [], "matched": [{"skill": "SQL", "evidence": "MySQL, PostgreSQL, DuckDB; multi-CTE queries, complex joins, warehouse marts (public repo)"}, {"skill": "Excel (advanced)", "evidence": "Advanced (PivotTables, Power Query, XLOOKUP / VLOOKUP); Google Sheets"}, {"skill": "Power BI", "evidence": "10+ Power BI dashboards shipped; Power BI Workshop 2025"}, {"skill": "Python / pandas", "evidence": "Pandas for analysis; Python automation of checks and pipelines"}, {"skill": "Reconciliation & root cause", "evidence": "120+ corrections closed to root cause at Innodata"}, {"skill": "Dashboards", "evidence": "10+ Power BI dashboards; also web dashboards (Next.js) in projects"}, {"skill": "Automation", "evidence": "Checks automated as scripts; report preparation automated"}], "partial": [{"skill": "Tableau", "evidence": "CV states Tableau is 'declared openly, not claimed'"}, {"skill": "Statistics", "evidence": "Economics with Statistics degree; back test, A/B testing"}, {"skill": "Plain-language stakeholder reporting", "evidence": "Plain-language readouts; weekly KPI summaries in plain language"}], "gaps": [], "unknown": [{"skill": "Healthcare domain", "note": "CV is silent; the ad does not make it mandatory"}], "keywords_supported": ["SQL", "Excel (advanced)", "Power BI", "Python / pandas", "Reconciliation & root cause", "Dashboards", "Automation"], "notes": "Munich Re group company. Report and dashboard building, automation, root-cause analysis - all evidenced. But 3-4 years of experience is stated and it is listed Mid-Senior, with OBIEE named as essential.", "caution": "OBIEE and Access are named as essential and are not on your CV.", "desc_len": 1815}, {"id": "4482099030", "status": "backup", "title": "Associate, Commercial Analytics", "company": "Property Finder", "emirate": "Dubai", "location_raw": "Dubai, Dubai, United Arab Emirates", "arrangement": "On-site (Dubai)", "industry": "Property portal / proptech", "employment_type": "Full-time", "seniority_listed": "Mid-Senior level", "posted": "2026-10-25", "posted_ago": "1 day ago", "verified_on": "2026-10-26", "verification": "Page loaded and showed an active Apply control on 2026-10-26. No closing date stated in the ad.", "source": "LinkedIn public job listing (no login used)", "apply_url": "https://www.linkedin.com/jobs/view/4482099030", "fit": 66, "band": "Apply after tailoring", "confidence": 0.75, "confidence_label": "High", "components": {"requirement_coverage": 0.792, "experience_alignment": 0.2, "seniority_alignment": 0.35, "role_family_alignment": 0.8, "domain_alignment": 0.833, "stack_overlap": 1.0, "eligibility_logistics": 1.0}, "seniority_stated": "Mid-Senior level", "years_required": 3, "years_required_high": 3, "experience_note": "Far below stated minimum (3+ yrs)", "role_family": "pricing", "flags": [], "matched": [{"skill": "SQL", "evidence": "MySQL, PostgreSQL, DuckDB; multi-CTE queries, complex joins, warehouse marts (public repo)"}, {"skill": "Data quality & audits", "evidence": "5,000+ items validated to written standards; audits and standards enforcement"}, {"skill": "UAE real estate data (DLD/Ejari/RERA)", "evidence": "Dubai Land Department sales + Ejari rent data; RERA rent slabs; KHDA school data"}], "partial": [{"skill": "Segmentation", "evidence": "Customer segmentation workflow"}, {"skill": "Plain-language stakeholder reporting", "evidence": "Plain-language readouts; weekly KPI summaries in plain language"}], "gaps": [], "unknown": [{"skill": "Commercial / GMV analytics", "note": "CV is silent; the ad does not make it mandatory"}], "keywords_supported": ["SQL", "Data quality & audits", "UAE real estate data (DLD/Ejari/RERA)"], "notes": "Commercial analytics bridge role between sales and analytics. Ad asks for 3+ years including 2 years at MBB or a Tier-1 consulting firm - a hard, unusual requirement you cannot meet. Good company, wrong door.", "caution": "Only pursue with an internal referral.", "desc_len": 4265}, {"id": "4482786642", "status": "backup", "title": "BI / Analytics Reporting Specialist", "company": "Dicetek LLC", "emirate": "Dubai", "location_raw": "Dubai, Dubai, United Arab Emirates", "arrangement": "On-site (Dubai)", "industry": "IT services", "employment_type": "Contract", "seniority_listed": "Entry level", "posted": "2026-10-23", "posted_ago": "3 days ago", "verified_on": "2026-10-26", "verification": "Page loaded and showed an active Apply control on 2026-10-26. No closing date stated in the ad.", "source": "LinkedIn public job listing (no login used)", "apply_url": "https://www.linkedin.com/jobs/view/4482786642", "fit": 58, "band": "Lower priority", "confidence": 0.6, "confidence_label": "Medium", "components": {"requirement_coverage": 0.759, "experience_alignment": 0.7, "seniority_alignment": 1.0, "role_family_alignment": 0.95, "domain_alignment": 0.8, "stack_overlap": 0.783, "eligibility_logistics": 1.0}, "seniority_stated": "Entry level", "years_required": null, "years_required_high": null, "experience_note": "No explicit years stated -> neutral, lower confidence", "role_family": "mis_reporting", "flags": ["Mandated requirement with no CV evidence: sap"], "matched": [{"skill": "SQL", "evidence": "MySQL, PostgreSQL, DuckDB; multi-CTE queries, complex joins, warehouse marts (public repo)"}, {"skill": "Power BI", "evidence": "10+ Power BI dashboards shipped; Power BI Workshop 2025"}, {"skill": "Data quality & audits", "evidence": "5,000+ items validated to written standards; audits and standards enforcement"}, {"skill": "KPI / recurring reporting", "evidence": "Weekly KPI reports; recurring Excel and Power BI reports owned end to end"}, {"skill": "Dashboards", "evidence": "10+ Power BI dashboards; also web dashboards (Next.js) in projects"}], "partial": [], "gaps": [{"skill": "SAP ERP", "note": "Named in the ad; no CV evidence - do not add unless real"}], "unknown": [{"skill": "SAP BusinessObjects", "note": "CV is silent; the ad does not make it mandatory"}], "keywords_supported": ["SQL", "Power BI", "Data quality & audits", "KPI / recurring reporting", "Dashboards"], "notes": "Filed as Entry level by the poster, but SAP BusinessObjects, Crystal Reports, Power BI admin and Fabric are all named as mandatory. You have none of the SAP stack. This is the clearest 'entry level' label that is not actually entry level.", "caution": "Not worth the time unless you are willing to learn SAP BO on your own.", "desc_len": 1321}, {"id": "4480662288", "status": "backup", "title": "Senior Data Analyst - Statistics and Market Research", "company": "Timesworld", "emirate": "Dubai", "location_raw": "Dubai, Dubai, United Arab Emirates", "arrangement": "On-site (Dubai)", "industry": "Market research", "employment_type": "Full-time", "seniority_listed": "Mid-Senior level", "posted": "2026-10-24", "posted_ago": "2 days ago", "verified_on": "2026-10-26", "verification": "Page loaded and showed an active Apply control on 2026-10-26. No closing date stated in the ad.", "source": "LinkedIn public job listing (no login used)", "apply_url": "https://www.linkedin.com/jobs/view/4480662288", "fit": 58, "band": "Lower priority", "confidence": 0.75, "confidence_label": "High", "components": {"requirement_coverage": 0.667, "experience_alignment": 0.2, "seniority_alignment": 0.35, "role_family_alignment": 1.0, "domain_alignment": 0.65, "stack_overlap": 0.75, "eligibility_logistics": 1.0}, "seniority_stated": "Mid-Senior level", "years_required": 3, "years_required_high": 3, "experience_note": "Far below stated minimum (3+ yrs)", "role_family": "data_analyst", "flags": ["Mandated requirement with no CV evidence: r_language, spss"], "matched": [{"skill": "SQL", "evidence": "MySQL, PostgreSQL, DuckDB; multi-CTE queries, complex joins, warehouse marts (public repo)"}, {"skill": "Excel (advanced)", "evidence": "Advanced (PivotTables, Power Query, XLOOKUP / VLOOKUP); Google Sheets"}, {"skill": "Power BI", "evidence": "10+ Power BI dashboards shipped; Power BI Workshop 2025"}, {"skill": "Python / pandas", "evidence": "Pandas for analysis; Python automation of checks and pipelines"}, {"skill": "Data cleaning & validation", "evidence": "Cleaning, validation, reconciliation; 20,000+ records cleansed at Learnttechzo"}, {"skill": "Data quality & audits", "evidence": "5,000+ items validated to written standards; audits and standards enforcement"}, {"skill": "Master data / deduplication", "evidence": "Duplicate and inconsistency resolution to golden records"}, {"skill": "Dashboards", "evidence": "10+ Power BI dashboards; also web dashboards (Next.js) in projects"}], "partial": [{"skill": "Tableau", "evidence": "CV states Tableau is 'declared openly, not claimed'"}, {"skill": "Segmentation", "evidence": "Customer segmentation workflow"}, {"skill": "Statistics", "evidence": "Economics with Statistics degree; back test, A/B testing"}, {"skill": "Plain-language stakeholder reporting", "evidence": "Plain-language readouts; weekly KPI summaries in plain language"}], "gaps": [{"skill": "R", "note": "Named in the ad; no CV evidence - do not add unless real"}, {"skill": "SPSS", "note": "Named in the ad; no CV evidence - do not add unless real"}], "unknown": [{"skill": "Market / survey research", "note": "CV is silent; the ad does not make it mandatory"}], "keywords_supported": ["SQL", "Excel (advanced)", "Power BI", "Python / pandas", "Data cleaning & validation", "Data quality & audits", "Master data / deduplication", "Dashboards"], "notes": "Statistics-heavy market research role. Your Economics-with-Statistics degree, A/B testing, forecasting and data-quality work are relevant, but the ad requires 3+ years of panel/survey analysis and SPSS and/or R.", "caution": "SPSS and R are not on your CV - do not add them.", "desc_len": 2435}, {"id": "4482920839", "status": "excluded", "title": "Supply Chain Analyst / Supply Chain Specialist (F&B)", "company": "Newcrest Mining Limited", "emirate": "Dubai", "location_raw": "Dubai, United Arab Emirates", "arrangement": "Part-time, Dubai", "industry": "Listed as mining, advertising F&B supply chain", "employment_type": "Part-time", "seniority_listed": "Entry level", "posted": "2026-10-26", "posted_ago": "3 minutes ago", "verified_on": "2026-10-26", "verification": "Page loaded and showed an active Apply control on 2026-10-26. No closing date stated in the ad.", "source": "LinkedIn public job listing (no login used)", "apply_url": "https://www.linkedin.com/jobs/view/4482920839", "fit": 80.0, "band": "Apply", "confidence": 0.6, "confidence_label": "Medium", "components": {"requirement_coverage": 0.863, "experience_alignment": 0.7, "seniority_alignment": 1.0, "role_family_alignment": 0.45, "domain_alignment": 0.65, "stack_overlap": 1.0, "eligibility_logistics": 1.0}, "seniority_stated": "Entry level", "years_required": null, "years_required_high": null, "experience_note": "No explicit years stated -> neutral, lower confidence", "role_family": "other", "flags": [], "matched": [{"skill": "Excel (advanced)", "evidence": "Advanced (PivotTables, Power Query, XLOOKUP / VLOOKUP); Google Sheets"}, {"skill": "Data cleaning & validation", "evidence": "Cleaning, validation, reconciliation; 20,000+ records cleansed at Learnttechzo"}, {"skill": "Data quality & audits", "evidence": "5,000+ items validated to written standards; audits and standards enforcement"}, {"skill": "SOPs & documentation", "evidence": "Definitions and procedures documented as team SOPs"}], "partial": [{"skill": "Forecasting", "evidence": "Time-series forecasting; retail forecasting workflow"}, {"skill": "Plain-language stakeholder reporting", "evidence": "Plain-language readouts; weekly KPI summaries in plain language"}, {"skill": "ERP / inventory data", "evidence": "CV states ERP and inventory data are 'adjacent through e-commerce datasets'"}], "gaps": [], "unknown": [], "keywords_supported": ["Excel (advanced)", "Data cleaning & validation", "Data quality & audits", "SOPs & documentation"], "notes": "EXCLUDED: inconsistent listing. A mining company advertising an F&B supply-chain analyst role, part-time, in Dubai, with generic responsibilities. Treat as unverified and do not send personal data.", "caution": "Plausible low-quality or aggregator listing.", "desc_len": 4002}, {"id": "4483102834", "status": "excluded", "title": "Data analyst (m/f)", "company": "Marsh", "emirate": "Abu Dhabi", "location_raw": "Abu Dhabi, Abu Dhabi Emirate, United Arab Emirates", "arrangement": "Conflicted", "industry": "Insurance broking", "employment_type": "Full-time", "seniority_listed": "Not Applicable", "posted": "2026-10-24", "posted_ago": "2 days ago", "verified_on": "2026-10-26", "verification": "Page loaded and showed an active Apply control on 2026-10-26. No closing date stated in the ad.", "source": "LinkedIn public job listing (no login used)", "apply_url": "https://www.linkedin.com/jobs/view/4483102834", "fit": 66, "band": "Apply after tailoring", "confidence": 0.75, "confidence_label": "High", "components": {"requirement_coverage": 0.81, "experience_alignment": 0.2, "seniority_alignment": 0.7, "role_family_alignment": 1.0, "domain_alignment": 0.75, "stack_overlap": 0.5, "eligibility_logistics": 0.5}, "seniority_stated": "Not Applicable", "years_required": 3, "years_required_high": 5, "experience_note": "Far below stated minimum (3+ yrs)", "role_family": "data_analyst", "flags": ["JD body names a non-UAE base - location conflict, verify before applying"], "matched": [{"skill": "Data cleaning & validation", "evidence": "Cleaning, validation, reconciliation; 20,000+ records cleansed at Learnttechzo"}, {"skill": "Data quality & audits", "evidence": "5,000+ items validated to written standards; audits and standards enforcement"}, {"skill": "Dashboards", "evidence": "10+ Power BI dashboards; also web dashboards (Next.js) in projects"}, {"skill": "Automation", "evidence": "Checks automated as scripts; report preparation automated"}], "partial": [{"skill": "Forecasting", "evidence": "Time-series forecasting; retail forecasting workflow"}, {"skill": "Plain-language stakeholder reporting", "evidence": "Plain-language readouts; weekly KPI summaries in plain language"}], "gaps": [], "unknown": [{"skill": "Commercial / GMV analytics", "note": "CV is silent; the ad does not make it mandatory"}], "keywords_supported": ["Data cleaning & validation", "Data quality & audits", "Dashboards", "Automation"], "notes": "EXCLUDED: the job body says 'based in Paris, La Defense' while LinkedIn lists Abu Dhabi. The posting looks duplicated or mislocated. Do not spend time until the location is confirmed with the employer.", "caution": "Location conflict - verify before applying.", "desc_len": 3640}, {"id": "4480968610", "status": "excluded", "title": "Product Analyst", "company": "Easygenerator", "emirate": "Dubai", "location_raw": "Dubai, Dubai, United Arab Emirates", "arrangement": "On-site (Dubai)", "industry": "E-learning SaaS", "employment_type": "Full-time", "seniority_listed": "Mid-Senior level", "posted": "2026-10-20", "posted_ago": "6 days ago", "verified_on": "2026-10-26", "verification": "Page loaded and showed an active Apply control on 2026-10-26. No closing date stated in the ad.", "source": "LinkedIn public job listing (no login used)", "apply_url": "https://www.linkedin.com/jobs/view/4480968610", "fit": 62.0, "band": "Apply after tailoring", "confidence": 0.75, "confidence_label": "High", "components": {"requirement_coverage": 0.816, "experience_alignment": 0.2, "seniority_alignment": 0.35, "role_family_alignment": 0.6, "domain_alignment": 0.783, "stack_overlap": 0.675, "eligibility_logistics": 1.0}, "seniority_stated": "Mid-Senior level", "years_required": 3, "years_required_high": 3, "experience_note": "Far below stated minimum (3+ yrs)", "role_family": "business_analyst", "flags": [], "matched": [{"skill": "SQL", "evidence": "MySQL, PostgreSQL, DuckDB; multi-CTE queries, complex joins, warehouse marts (public repo)"}, {"skill": "Power BI", "evidence": "10+ Power BI dashboards shipped; Power BI Workshop 2025"}, {"skill": "Python / pandas", "evidence": "Pandas for analysis; Python automation of checks and pipelines"}, {"skill": "Warehouse / dimensional modelling", "evidence": "Warehouse marts (public repo); SQL warehouse workflow in analytics suite"}, {"skill": "Data cleaning & validation", "evidence": "Cleaning, validation, reconciliation; 20,000+ records cleansed at Learnttechzo"}, {"skill": "Data quality & audits", "evidence": "5,000+ items validated to written standards; audits and standards enforcement"}, {"skill": "Reconciliation & root cause", "evidence": "120+ corrections closed to root cause at Innodata"}, {"skill": "Dashboards", "evidence": "10+ Power BI dashboards; also web dashboards (Next.js) in projects"}, {"skill": "Automation", "evidence": "Checks automated as scripts; report preparation automated"}, {"skill": "LLM / AI output validation", "evidence": "Stewardship for enterprise AI systems; validating AI-generated outputs against source data; 29-question AI evaluation"}], "partial": [{"skill": "A/B testing", "evidence": "A/B testing (analytics suite)"}, {"skill": "Segmentation", "evidence": "Customer segmentation workflow"}, {"skill": "Plain-language stakeholder reporting", "evidence": "Plain-language readouts; weekly KPI summaries in plain language"}, {"skill": "Streamlit", "evidence": "Portfolio lists Streamlit for the analytics portfolio (not named on CV page)"}], "gaps": [{"skill": "Snowflake", "note": "Named in the ad; no CV evidence - do not add unless real"}], "unknown": [{"skill": "DAX", "note": "CV is silent; the ad does not make it mandatory"}, {"skill": "Commercial / GMV analytics", "note": "CV is silent; the ad does not make it mandatory"}], "keywords_supported": ["SQL", "Power BI", "Python / pandas", "Warehouse / dimensional modelling", "Data cleaning & validation", "Data quality & audits", "Reconciliation & root cause", "Dashboards", "Automation", "LLM / AI output validation"], "notes": "EXCLUDED as a first-round target: 3+ years required plus hands-on Snowflake, and Snowflake appears nowhere in your work. Strong AI-tooling overlap, but the Snowflake requirement is a hard screen.", "caution": "Revisit after a Snowflake project.", "desc_len": 2440}, {"id": "4482059275", "status": "excluded", "title": "Business Banking Onboarding QA Analyst", "company": "Sundus", "emirate": "UAE (emirate not stated)", "location_raw": "United Arab Emirates", "arrangement": "On-site (Abu Dhabi)", "industry": "Banking (via recruiter)", "employment_type": "Full-time", "seniority_listed": "Associate", "posted": "2026-10-22", "posted_ago": "4 days ago", "verified_on": "2026-10-26", "verification": "Page loaded and showed an active Apply control on 2026-10-26. No closing date stated in the ad.", "source": "LinkedIn public job listing (no login used)", "apply_url": "https://www.linkedin.com/jobs/view/4482059275", "fit": 60.2, "band": "Apply after tailoring", "confidence": 0.6, "confidence_label": "Medium", "components": {"requirement_coverage": 0.567, "experience_alignment": 0.7, "seniority_alignment": 0.85, "role_family_alignment": 0.45, "domain_alignment": 0.25, "stack_overlap": 0.5, "eligibility_logistics": 1.0}, "seniority_stated": "Associate", "years_required": null, "years_required_high": null, "experience_note": "No explicit years stated -> neutral, lower confidence", "role_family": "other", "flags": [], "matched": [{"skill": "Data cleaning & validation", "evidence": "Cleaning, validation, reconciliation; 20,000+ records cleansed at Learnttechzo"}], "partial": [{"skill": "Statistics", "evidence": "Economics with Statistics degree; back test, A/B testing"}], "gaps": [{"skill": "Banking domain", "note": "Named in the ad; no CV evidence - do not add unless real"}], "unknown": [], "keywords_supported": ["Data cleaning & validation"], "notes": "EXCLUDED: manual and UAT testing of onboarding journeys, not analytics.", "caution": "", "desc_len": 1647}, {"id": "4469108770", "status": "excluded", "title": "Product Analyst - Commercial Vehicles & Industrial Equipment", "company": "Ghassan Aboud Holding", "emirate": "Dubai", "location_raw": "Dubai, United Arab Emirates", "arrangement": "On-site (Dubai)", "industry": "Automotive distribution", "employment_type": "Full-time", "seniority_listed": "Associate", "posted": "2026-10-24", "posted_ago": "2 days ago", "verified_on": "2026-10-26", "verification": "Page loaded and showed an active Apply control on 2026-10-26. No closing date stated in the ad.", "source": "LinkedIn public job listing (no login used)", "apply_url": "https://www.linkedin.com/jobs/view/4469108770", "fit": 55, "band": "Lower priority", "confidence": 0.75, "confidence_label": "High", "components": {"requirement_coverage": 0.81, "experience_alignment": 0.2, "seniority_alignment": 0.85, "role_family_alignment": 0.6, "domain_alignment": 0.8, "stack_overlap": 0.5, "eligibility_logistics": 1.0}, "seniority_stated": "Associate", "years_required": 5, "years_required_high": 5, "experience_note": "Far below stated minimum (5+ yrs)", "role_family": "business_analyst", "flags": [], "matched": [{"skill": "Data cleaning & validation", "evidence": "Cleaning, validation, reconciliation; 20,000+ records cleansed at Learnttechzo"}, {"skill": "Data quality & audits", "evidence": "5,000+ items validated to written standards; audits and standards enforcement"}, {"skill": "Reconciliation & root cause", "evidence": "120+ corrections closed to root cause at Innodata"}, {"skill": "Dashboards", "evidence": "10+ Power BI dashboards; also web dashboards (Next.js) in projects"}, {"skill": "SOPs & documentation", "evidence": "Definitions and procedures documented as team SOPs"}, {"skill": "Pricing analysis", "evidence": "Comparable pricing bands published with a back test (DLD engine)"}], "partial": [{"skill": "Segmentation", "evidence": "Customer segmentation workflow"}, {"skill": "Plain-language stakeholder reporting", "evidence": "Plain-language readouts; weekly KPI summaries in plain language"}], "gaps": [], "unknown": [{"skill": "Commercial / GMV analytics", "note": "CV is silent; the ad does not make it mandatory"}], "keywords_supported": ["Data cleaning & validation", "Data quality & audits", "Reconciliation & root cause", "Dashboards", "SOPs & documentation", "Pricing analysis"], "notes": "EXCLUDED: this is a product-management and pricing-ownership role for a vehicle portfolio, not a data analyst seat.", "caution": "", "desc_len": 4544}, {"id": "4479407853", "status": "excluded", "title": "Business Analyst", "company": "RapidData", "emirate": "Dubai", "location_raw": "Dubai, United Arab Emirates", "arrangement": "On-site (Dubai)", "industry": "IT services", "employment_type": "Full-time", "seniority_listed": "Associate", "posted": "2026-10-22", "posted_ago": "4 days ago", "verified_on": "2026-10-26", "verification": "Page loaded and showed an active Apply control on 2026-10-26. No closing date stated in the ad.", "source": "LinkedIn public job listing (no login used)", "apply_url": "https://www.linkedin.com/jobs/view/4479407853", "fit": 55, "band": "Lower priority", "confidence": 0.75, "confidence_label": "High", "components": {"requirement_coverage": 0.829, "experience_alignment": 0.2, "seniority_alignment": 0.85, "role_family_alignment": 0.6, "domain_alignment": 0.8, "stack_overlap": 1.0, "eligibility_logistics": 1.0}, "seniority_stated": "Associate", "years_required": 4, "years_required_high": 4, "experience_note": "Far below stated minimum (4+ yrs)", "role_family": "business_analyst", "flags": ["Mandated requirement with no CV evidence: jira"], "matched": [{"skill": "SQL", "evidence": "MySQL, PostgreSQL, DuckDB; multi-CTE queries, complex joins, warehouse marts (public repo)"}, {"skill": "Python / pandas", "evidence": "Pandas for analysis; Python automation of checks and pipelines"}, {"skill": "Data cleaning & validation", "evidence": "Cleaning, validation, reconciliation; 20,000+ records cleansed at Learnttechzo"}, {"skill": "Data quality & audits", "evidence": "5,000+ items validated to written standards; audits and standards enforcement"}, {"skill": "Reconciliation & root cause", "evidence": "120+ corrections closed to root cause at Innodata"}, {"skill": "Dashboards", "evidence": "10+ Power BI dashboards; also web dashboards (Next.js) in projects"}, {"skill": "Automation", "evidence": "Checks automated as scripts; report preparation automated"}, {"skill": "SOPs & documentation", "evidence": "Definitions and procedures documented as team SOPs"}], "partial": [{"skill": "Plain-language stakeholder reporting", "evidence": "Plain-language readouts; weekly KPI summaries in plain language"}, {"skill": "TypeScript / Next.js", "evidence": "Portfolio lists Next.js and TypeScript for the Dubai Property Decision Engine and OpsPilot v2"}], "gaps": [{"skill": "Jira", "note": "Named in the ad; no CV evidence - do not add unless real"}], "unknown": [], "keywords_supported": ["SQL", "Python / pandas", "Data cleaning & validation", "Data quality & audits", "Reconciliation & root cause", "Dashboards", "Automation", "SOPs & documentation"], "notes": "EXCLUDED: 4+ years, Agile BA with Jira and API/requirement-spec experience. A different job family from your evidence.", "caution": "", "desc_len": 6000}, {"id": "4482877764", "status": "excluded", "title": "Data And Analytics Specialist", "company": "techcarrot", "emirate": "Abu Dhabi", "location_raw": "Abu Dhabi, Abu Dhabi Emirate, United Arab Emirates", "arrangement": "On-site (Abu Dhabi)", "industry": "IT consulting", "employment_type": "Full-time", "seniority_listed": "Mid-Senior level", "posted": "2026-10-23", "posted_ago": "3 days ago", "verified_on": "2026-10-26", "verification": "Page loaded and showed an active Apply control on 2026-10-26. No closing date stated in the ad.", "source": "LinkedIn public job listing (no login used)", "apply_url": "https://www.linkedin.com/jobs/view/4482877764", "fit": 55, "band": "Lower priority", "confidence": 0.75, "confidence_label": "High", "components": {"requirement_coverage": 0.692, "experience_alignment": 0.2, "seniority_alignment": 0.35, "role_family_alignment": 1.0, "domain_alignment": 0.375, "stack_overlap": 0.671, "eligibility_logistics": 1.0}, "seniority_stated": "Mid-Senior level", "years_required": 4, "years_required_high": 6, "experience_note": "Far below stated minimum (4+ yrs)", "role_family": "data_analyst", "flags": [], "matched": [{"skill": "SQL", "evidence": "MySQL, PostgreSQL, DuckDB; multi-CTE queries, complex joins, warehouse marts (public repo)"}, {"skill": "Excel (advanced)", "evidence": "Advanced (PivotTables, Power Query, XLOOKUP / VLOOKUP); Google Sheets"}, {"skill": "Power BI", "evidence": "10+ Power BI dashboards shipped; Power BI Workshop 2025"}, {"skill": "Python / pandas", "evidence": "Pandas for analysis; Python automation of checks and pipelines"}, {"skill": "Warehouse / dimensional modelling", "evidence": "Warehouse marts (public repo); SQL warehouse workflow in analytics suite"}, {"skill": "KPI / recurring reporting", "evidence": "Weekly KPI reports; recurring Excel and Power BI reports owned end to end"}, {"skill": "Dashboards", "evidence": "10+ Power BI dashboards; also web dashboards (Next.js) in projects"}, {"skill": "Automation", "evidence": "Checks automated as scripts; report preparation automated"}], "partial": [{"skill": "Segmentation", "evidence": "Customer segmentation workflow"}, {"skill": "Plain-language stakeholder reporting", "evidence": "Plain-language readouts; weekly KPI summaries in plain language"}, {"skill": "ERP / inventory data", "evidence": "CV states ERP and inventory data are 'adjacent through e-commerce datasets'"}], "gaps": [{"skill": "Snowflake", "note": "Named in the ad; no CV evidence - do not add unless real"}, {"skill": "Banking domain", "note": "Named in the ad; no CV evidence - do not add unless real"}], "unknown": [{"skill": "DAX", "note": "CV is silent; the ad does not make it mandatory"}, {"skill": "Azure / Databricks / SSAS / SSRS", "note": "CV is silent; the ad does not make it mandatory"}], "keywords_supported": ["SQL", "Excel (advanced)", "Power BI", "Python / pandas", "Warehouse / dimensional modelling", "KPI / recurring reporting", "Dashboards", "Automation"], "notes": "EXCLUDED: 4-6 years, on-prem Power BI Report Server, SSAS, SSRS, Databricks and Oracle. Deep platform engineering rather than junior analytics.", "caution": "", "desc_len": 4189}, {"id": "4482084703", "status": "excluded", "title": "Associate, Product Analytics", "company": "Property Finder", "emirate": "Dubai", "location_raw": "Dubai, Dubai, United Arab Emirates", "arrangement": "On-site (Dubai)", "industry": "Property portal / proptech", "employment_type": "Full-time", "seniority_listed": "Mid-Senior level", "posted": "2026-10-25", "posted_ago": "1 day ago", "verified_on": "2026-10-26", "verification": "Page loaded and showed an active Apply control on 2026-10-26. No closing date stated in the ad.", "source": "LinkedIn public job listing (no login used)", "apply_url": "https://www.linkedin.com/jobs/view/4482084703", "fit": 54.6, "band": "Lower priority", "confidence": 0.75, "confidence_label": "High", "components": {"requirement_coverage": 0.61, "experience_alignment": 0.2, "seniority_alignment": 0.35, "role_family_alignment": 0.45, "domain_alignment": 1.0, "stack_overlap": 0.75, "eligibility_logistics": 1.0}, "seniority_stated": "Mid-Senior level", "years_required": 3, "years_required_high": 3, "experience_note": "Far below stated minimum (3+ yrs)", "role_family": "other", "flags": ["Mandated requirement with no CV evidence: google_analytics"], "matched": [{"skill": "SQL", "evidence": "MySQL, PostgreSQL, DuckDB; multi-CTE queries, complex joins, warehouse marts (public repo)"}, {"skill": "UAE real estate data (DLD/Ejari/RERA)", "evidence": "Dubai Land Department sales + Ejari rent data; RERA rent slabs; KHDA school data"}], "partial": [{"skill": "Tableau", "evidence": "CV states Tableau is 'declared openly, not claimed'"}, {"skill": "A/B testing", "evidence": "A/B testing (analytics suite)"}, {"skill": "Plain-language stakeholder reporting", "evidence": "Plain-language readouts; weekly KPI summaries in plain language"}], "gaps": [{"skill": "Google Analytics", "note": "Named in the ad; no CV evidence - do not add unless real"}], "unknown": [], "keywords_supported": ["SQL", "UAE real estate data (DLD/Ejari/RERA)"], "notes": "EXCLUDED: requires a minimum of 2 years at McKinsey, Bain, BCG or another Tier-1 consulting firm. Not a realistic target at this stage.", "caution": "", "desc_len": 3260}, {"id": "4480287992", "status": "excluded", "title": "Risk Analyst (SQL), Fraud Prevention", "company": "Binance", "emirate": "UAE (emirate not stated)", "location_raw": "United Arab Emirates", "arrangement": "Remote (UAE)", "industry": "Crypto exchange", "employment_type": "Full-time", "seniority_listed": "Mid-Senior level", "posted": "2026-10-20", "posted_ago": "6 days ago", "verified_on": "2026-10-26", "verification": "Page loaded and showed an active Apply control on 2026-10-26. No closing date stated in the ad.", "source": "LinkedIn public job listing (no login used)", "apply_url": "https://www.linkedin.com/jobs/view/4480287992", "fit": 54.2, "band": "Lower priority", "confidence": 0.75, "confidence_label": "High", "components": {"requirement_coverage": 0.711, "experience_alignment": 0.2, "seniority_alignment": 0.35, "role_family_alignment": 0.45, "domain_alignment": 0.25, "stack_overlap": 1.0, "eligibility_logistics": 1.0}, "seniority_stated": "Mid-Senior level", "years_required": 5, "years_required_high": 5, "experience_note": "Far below stated minimum (5+ yrs)", "role_family": "other", "flags": ["Mandated requirement with no CV evidence: banking_domain"], "matched": [{"skill": "SQL", "evidence": "MySQL, PostgreSQL, DuckDB; multi-CTE queries, complex joins, warehouse marts (public repo)"}, {"skill": "Python / pandas", "evidence": "Pandas for analysis; Python automation of checks and pipelines"}, {"skill": "Dashboards", "evidence": "10+ Power BI dashboards; also web dashboards (Next.js) in projects"}], "partial": [{"skill": "Plain-language stakeholder reporting", "evidence": "Plain-language readouts; weekly KPI summaries in plain language"}], "gaps": [{"skill": "Banking domain", "note": "Named in the ad; no CV evidence - do not add unless real"}], "unknown": [], "keywords_supported": ["SQL", "Python / pandas", "Dashboards"], "notes": "EXCLUDED: 5 years of fraud risk experience. Your reconciliation and root-cause skills are adjacent, but anti-fraud investigations are a separate discipline.", "caution": "", "desc_len": 3988}, {"id": "4481913876", "status": "excluded", "title": "Business Analyst", "company": "Intellect Design Arena Ltd", "emirate": "Dubai", "location_raw": "Dubai, United Arab Emirates", "arrangement": "On-site (Dubai)", "industry": "Fintech product", "employment_type": "Full-time", "seniority_listed": "Mid-Senior level", "posted": "2026-10-24", "posted_ago": "2 days ago", "verified_on": "2026-10-26", "verification": "Page loaded and showed an active Apply control on 2026-10-26. No closing date stated in the ad.", "source": "LinkedIn public job listing (no login used)", "apply_url": "https://www.linkedin.com/jobs/view/4481913876", "fit": 42, "band": "Lower priority / skip unless capacity", "confidence": 0.75, "confidence_label": "High", "components": {"requirement_coverage": 0.507, "experience_alignment": 0.2, "seniority_alignment": 0.35, "role_family_alignment": 0.6, "domain_alignment": 0.483, "stack_overlap": 0.5, "eligibility_logistics": 1.0}, "seniority_stated": "Mid-Senior level", "years_required": 10, "years_required_high": 10, "experience_note": "Far below stated minimum (10+ yrs)", "role_family": "business_analyst", "flags": ["Mandated requirement with no CV evidence: banking_domain"], "matched": [{"skill": "SOPs & documentation", "evidence": "Definitions and procedures documented as team SOPs"}], "partial": [{"skill": "Plain-language stakeholder reporting", "evidence": "Plain-language readouts; weekly KPI summaries in plain language"}, {"skill": "ERP / inventory data", "evidence": "CV states ERP and inventory data are 'adjacent through e-commerce datasets'"}], "gaps": [{"skill": "Banking domain", "note": "Named in the ad; no CV evidence - do not add unless real"}], "unknown": [{"skill": "Commercial / GMV analytics", "note": "CV is silent; the ad does not make it mandatory"}], "keywords_supported": ["SOPs & documentation"], "notes": "EXCLUDED: 8-10 years corporate banking business analysis.", "caution": "", "desc_len": 2481}, {"id": "4480452628", "status": "excluded", "title": "Manager Data Analytics - Logistics", "company": "talabat", "emirate": "Dubai", "location_raw": "Dubai, Dubai, United Arab Emirates", "arrangement": "On-site (Dubai)", "industry": "Food delivery", "employment_type": "Full-time", "seniority_listed": "Mid-Senior level", "posted": "2026-10-21", "posted_ago": "5 days ago", "verified_on": "2026-10-26", "verification": "Page loaded and showed an active Apply control on 2026-10-26. No closing date stated in the ad.", "source": "LinkedIn public job listing (no login used)", "apply_url": "https://www.linkedin.com/jobs/view/4480452628", "fit": 42, "band": "Lower priority / skip unless capacity", "confidence": 0.75, "confidence_label": "High", "components": {"requirement_coverage": 0.867, "experience_alignment": 0.2, "seniority_alignment": 0.35, "role_family_alignment": 1.0, "domain_alignment": 0.675, "stack_overlap": 1.0, "eligibility_logistics": 1.0}, "seniority_stated": "Mid-Senior level", "years_required": 6, "years_required_high": 7, "experience_note": "Far below stated minimum (6+ yrs)", "role_family": "data_analyst", "flags": [], "matched": [{"skill": "SQL", "evidence": "MySQL, PostgreSQL, DuckDB; multi-CTE queries, complex joins, warehouse marts (public repo)"}, {"skill": "Dashboards", "evidence": "10+ Power BI dashboards; also web dashboards (Next.js) in projects"}, {"skill": "LLM / AI output validation", "evidence": "Stewardship for enterprise AI systems; validating AI-generated outputs against source data; 29-question AI evaluation"}], "partial": [{"skill": "Plain-language stakeholder reporting", "evidence": "Plain-language readouts; weekly KPI summaries in plain language"}, {"skill": "ERP / inventory data", "evidence": "CV states ERP and inventory data are 'adjacent through e-commerce datasets'"}], "gaps": [], "unknown": [], "keywords_supported": ["SQL", "Dashboards", "LLM / AI output validation"], "notes": "EXCLUDED: manager-level, 6-7 years, product roadmap ownership.", "caution": "", "desc_len": 2531}, {"id": "4483177307", "status": "excluded", "title": "MI / Data Analyst", "company": "Dicetek LLC", "emirate": "Dubai", "location_raw": "Dubai, Dubai, United Arab Emirates", "arrangement": "On-site (Dubai)", "industry": "IT services", "employment_type": "Contract", "seniority_listed": "Mid-Senior level", "posted": "2026-10-24", "posted_ago": "2 days ago", "verified_on": "2026-10-26", "verification": "Page loaded and showed an active Apply control on 2026-10-26. No closing date stated in the ad.", "source": "LinkedIn public job listing (no login used)", "apply_url": "https://www.linkedin.com/jobs/view/4483177307", "fit": 42, "band": "Lower priority / skip unless capacity", "confidence": 0.75, "confidence_label": "High", "components": {"requirement_coverage": 0.662, "experience_alignment": 0.2, "seniority_alignment": 0.35, "role_family_alignment": 1.0, "domain_alignment": 0.517, "stack_overlap": 0.838, "eligibility_logistics": 1.0}, "seniority_stated": "Mid-Senior level", "years_required": 7, "years_required_high": 7, "experience_note": "Far below stated minimum (7+ yrs)", "role_family": "data_analyst", "flags": ["Mandated requirement with no CV evidence: banking_domain"], "matched": [{"skill": "SQL", "evidence": "MySQL, PostgreSQL, DuckDB; multi-CTE queries, complex joins, warehouse marts (public repo)"}, {"skill": "Excel (advanced)", "evidence": "Advanced (PivotTables, Power Query, XLOOKUP / VLOOKUP); Google Sheets"}, {"skill": "Power BI", "evidence": "10+ Power BI dashboards shipped; Power BI Workshop 2025"}, {"skill": "Data cleaning & validation", "evidence": "Cleaning, validation, reconciliation; 20,000+ records cleansed at Learnttechzo"}, {"skill": "Data quality & audits", "evidence": "5,000+ items validated to written standards; audits and standards enforcement"}, {"skill": "KPI / recurring reporting", "evidence": "Weekly KPI reports; recurring Excel and Power BI reports owned end to end"}, {"skill": "Dashboards", "evidence": "10+ Power BI dashboards; also web dashboards (Next.js) in projects"}, {"skill": "Automation", "evidence": "Checks automated as scripts; report preparation automated"}], "partial": [{"skill": "Plain-language stakeholder reporting", "evidence": "Plain-language readouts; weekly KPI summaries in plain language"}, {"skill": "ERP / inventory data", "evidence": "CV states ERP and inventory data are 'adjacent through e-commerce datasets'"}], "gaps": [{"skill": "ServiceNow", "note": "Named in the ad; no CV evidence - do not add unless real"}, {"skill": "Jira", "note": "Named in the ad; no CV evidence - do not add unless real"}, {"skill": "Banking domain", "note": "Named in the ad; no CV evidence - do not add unless real"}], "unknown": [{"skill": "DAX", "note": "CV is silent; the ad does not make it mandatory"}], "keywords_supported": ["SQL", "Excel (advanced)", "Power BI", "Data cleaning & validation", "Data quality & audits", "KPI / recurring reporting", "Dashboards", "Automation"], "notes": "EXCLUDED: minimum 7 years MIS with 3 years in banking, ServiceNow and PL-300. Far outside your range.", "caution": "", "desc_len": 1657}, {"id": "4481340271", "status": "excluded", "title": "Associate, Product Operations", "company": "HungerStation | هنقرستيشن", "emirate": "Dubai", "location_raw": "Dubai, Dubai, United Arab Emirates", "arrangement": "On-site (Dubai)", "industry": "Food delivery", "employment_type": "Contract", "seniority_listed": "Associate", "posted": "2026-10-23", "posted_ago": "3 days ago", "verified_on": "2026-10-26", "verification": "Page loaded and showed an active Apply control on 2026-10-26. No closing date stated in the ad.", "source": "LinkedIn public job listing (no login used)", "apply_url": "https://www.linkedin.com/jobs/view/4481340271", "fit": 35, "band": "Lower priority / skip unless capacity", "confidence": 0.75, "confidence_label": "High", "components": {"requirement_coverage": 0.733, "experience_alignment": 1.0, "seniority_alignment": 0.85, "role_family_alignment": 0.45, "domain_alignment": 0.65, "stack_overlap": 0.5, "eligibility_logistics": 0.15}, "seniority_stated": "Associate", "years_required": 0, "years_required_high": 1, "experience_note": "Meets stated minimum (0+ yrs) with 1.2 yrs", "role_family": "other", "flags": ["UAE-national / Emiratisation restriction stated - likely not open to sponsored candidates", "Nationality-restricted posting (UAE national / Emiratisation)"], "matched": [{"skill": "Data quality & audits", "evidence": "5,000+ items validated to written standards; audits and standards enforcement"}], "partial": [{"skill": "Plain-language stakeholder reporting", "evidence": "Plain-language readouts; weekly KPI summaries in plain language"}, {"skill": "ERP / inventory data", "evidence": "CV states ERP and inventory data are 'adjacent through e-commerce datasets'"}], "gaps": [], "unknown": [], "keywords_supported": ["Data quality & audits"], "notes": "EXCLUDED: product operations, voice-of-vendor feedback loops, IC1. Adjacent but not a data analyst track.", "caution": "", "desc_len": 2957}, {"id": "4482820983", "status": "excluded", "title": "HR Governance & MIS Specialist", "company": "ADIB - Abu Dhabi Islamic Bank", "emirate": "Abu Dhabi", "location_raw": "Abu Dhabi, Abu Dhabi Emirate, United Arab Emirates", "arrangement": "On-site (Abu Dhabi)", "industry": "Islamic banking", "employment_type": "Full-time", "seniority_listed": "Not Applicable", "posted": "2026-10-23", "posted_ago": "3 days ago", "verified_on": "2026-10-26", "verification": "Page loaded and showed an active Apply control on 2026-10-26. No closing date stated in the ad.", "source": "LinkedIn public job listing (no login used)", "apply_url": "https://www.linkedin.com/jobs/view/4482820983", "fit": 35, "band": "Lower priority / skip unless capacity", "confidence": 0.75, "confidence_label": "High", "components": {"requirement_coverage": 0.814, "experience_alignment": 1.0, "seniority_alignment": 0.7, "role_family_alignment": 0.95, "domain_alignment": 0.525, "stack_overlap": 0.5, "eligibility_logistics": 0.15}, "seniority_stated": "Not Applicable", "years_required": 1, "years_required_high": 1, "experience_note": "Meets stated minimum (1+ yrs) with 1.2 yrs", "role_family": "mis_reporting", "flags": ["UAE-national / Emiratisation restriction stated - likely not open to sponsored candidates", "Nationality-restricted posting (UAE national / Emiratisation)"], "matched": [{"skill": "Data cleaning & validation", "evidence": "Cleaning, validation, reconciliation; 20,000+ records cleansed at Learnttechzo"}, {"skill": "Data quality & audits", "evidence": "5,000+ items validated to written standards; audits and standards enforcement"}, {"skill": "KPI / recurring reporting", "evidence": "Weekly KPI reports; recurring Excel and Power BI reports owned end to end"}, {"skill": "Dashboards", "evidence": "10+ Power BI dashboards; also web dashboards (Next.js) in projects"}, {"skill": "SOPs & documentation", "evidence": "Definitions and procedures documented as team SOPs"}], "partial": [{"skill": "Plain-language stakeholder reporting", "evidence": "Plain-language readouts; weekly KPI summaries in plain language"}], "gaps": [{"skill": "Banking domain", "note": "Named in the ad; no CV evidence - do not add unless real"}], "unknown": [], "keywords_supported": ["Data cleaning & validation", "Data quality & audits", "KPI / recurring reporting", "Dashboards", "SOPs & documentation"], "notes": "EXCLUDED: the ad states the position is for UAE Nationals only.", "caution": "", "desc_len": 2881}];
+const ATS = {"score": 63, "verdict": "Readable as raw text, risky as layout. Weighted rubric: 12 checks, layout failures cost the most.", "checks": [["Text layer present (not a scan)", "PASS", "671 words extract cleanly; no OCR needed."], ["Standard fonts, no glyph substitution", "PASS", "Helvetica + one embedded DejaVu subset; accents and bullets extract correctly."], ["Contact details in the body, not a header/footer", "PASS", "Email and phone sit in the page body and extract cleanly."], ["Hyperlinks are real link annotations", "PASS", "16 URI annotations found, including GitHub, portfolio and project links."], ["Single-column reading order", "FAIL", "Two columns (sidebar x<250pt, main x>250pt) with 671 words split 350/321. A row-by-row parser interleaves both columns."], ["Section headings in expected order", "PARTIAL", "Certifications, Earlier Experience and Projects sit in the right column, out of the left column's document flow."], ["Photo / non-text image", "FAIL", "One image present. Many parsers handle it, some drop the block; it adds no information for a screen."], ["Self-identifying personal fields", "PARTIAL", "Date of birth and nationality are unusual outside the Gulf and invite bias; they are not ATS-breaking."], ["Dates parse as month + year", "PASS", "'December 2025 to August 2026' parses cleanly."], ["Tables used for layout", "PASS", "No tables detected."], ["Keyword coverage for analyst roles", "PASS", "SQL, Excel, Power BI, dashboards, data quality, reconciliation, KPI reporting all appear in context."], ["File is a real PDF, 1 page", "PASS", "One page, A4, machine-readable."]]};
+const KEY='sk_jobs_v1';
+let store = JSON.parse(localStorage.getItem(KEY)||'{}');
+const save=()=>localStorage.setItem(KEY,JSON.stringify(store));
+const S = id => (store[id] = store[id] || {saved:false,status:'Not started',notes:''});
+
+function fill(sel,vals){vals.forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;sel.appendChild(o);});}
+fill(document.getElementById('femirate'),[...new Set(JOBS.map(j=>j.emirate))].sort());
+fill(document.getElementById('ffamily'),[...new Set(JOBS.map(j=>j.role_family))].sort());
+
+const esc = s => (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const bandClass = b => b==='shortlist'?'shortlist':b==='backup'?'backup':'excluded';
+
+function render(){
+  const q=document.getElementById('q').value.toLowerCase().trim();
+  const st=document.getElementById('fstatus').value;
+  const em=document.getElementById('femirate').value;
+  const fam=document.getElementById('ffamily').value;
+  const minf=+document.getElementById('ffit').value;
+  const onlySaved=document.getElementById('fsaved').value;
+  document.getElementById('fitlbl').textContent=minf;
+
+  const rows=JOBS.filter(j=>{
+    if(st && j.status!==st) return false;
+    if(em && j.emirate!==em) return false;
+    if(fam && j.role_family!==fam) return false;
+    if(j.fit<minf) return false;
+    if(onlySaved && !(store[j.id]&&store[j.id].saved)) return false;
+    if(q && !((j.title+' '+j.company+' '+j.industry).toLowerCase().includes(q))) return false;
+    return true;
+  });
+
+  document.getElementById('kTotal').textContent=rows.length;
+  document.getElementById('kSaved').textContent=JOBS.filter(j=>store[j.id]&&store[j.id].saved).length;
+  document.getElementById('kApplied').textContent=JOBS.filter(j=>store[j.id]&&store[j.id].status==='Applied').length;
+  document.getElementById('kAvg').textContent=rows.length?Math.round(rows.reduce((a,b)=>a+b.fit,0)/rows.length):0;
+
+  document.getElementById('list').innerHTML = rows.map(j=>{
+    const s=S(j.id);
+    const comp=Object.entries(j.components).map(([k,v])=>
+      `<div class="comp"><span>${k.replace(/_/g,' ')}</span><span class="b"><i style="width:${Math.round(v*100)}%"></i></span><span>${Math.round(v*100)}</span></div>`).join('');
+    const li = arr => arr.length? '<ul>'+arr.map(x=>`<li><b>${esc(x.skill)}</b>${x.evidence?` <span class="ev">&mdash; ${esc(x.evidence)}</span>`:''}${x.note?` <span class="muted">${esc(x.note)}</span>`:''}</li>`).join('')+'</ul>' : '<p class="muted">None identified.</p>';
+    return `<div class="card ${bandClass(j.status)}">
+      <div style="display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap">
+        <div style="flex:1;min-width:230px">
+          <h4>${esc(j.title)}</h4>
+          <div class="meta"><b>${esc(j.company)}</b> &middot; ${esc(j.emirate)} &middot; ${esc(j.industry)}</div>
+          <div class="meta">${esc(j.arrangement)} &middot; ${esc(j.employment_type)} &middot; posted ${esc(j.posted)} (${esc(j.posted_ago)})</div>
+          <div class="tagrow">
+            <span class="tag">${esc(j.seniority_listed)}</span>
+            ${(j.years_required===null||j.years_required===undefined)?'<span class="tag">no years stated in ad</span>':`<span class="tag">ad states ${j.years_required}${(j.years_required_high&&j.years_required_high!==j.years_required)?'&ndash;'+j.years_required_high:''}+ yrs experience</span>`}
+            <span class="tag">confidence: ${esc(j.confidence_label)}</span>
+            ${s.saved?'<span class="tag track">saved</span>':''}
+            ${s.status!=='Not started'?`<span class="tag track">${esc(s.status)}</span>`:''}
+          </div>
+        </div>
+        <div style="min-width:150px">
+          <div class="fitnum" style="color:${j.status==='shortlist'?'#126b52':j.status==='backup'?'#8a6413':'#6d7b88'}">${j.fit}</div>
+          <div class="muted">fit estimate</div>
+          <div class="track" style="margin-top:6px"><i style="width:${j.fit}%"></i></div>
+          <div class="muted" style="margin-top:5px">${esc(j.band)}</div>
+        </div>
       </div>
-    </div>
-
-    <div class="project-card reveal">
-      <div class="pc-icon">📊</div>
-      <div class="pc-title">Executive AI Business Analyst</div>
-      <div class="pc-desc">My first full-stack AI product. Enter a business question → get an executive report with SWOT, competitor tables, risks, and strategic recommendations. React + FastAPI + OpenRouter, deployed on Vercel + Render.</div>
-      <div class="pc-tags"><span>React</span><span>FastAPI</span><span>Tailwind</span><span>OpenRouter</span></div>
-      <div class="pc-links">
-        <a href="https://executive-ai-business-analyst.vercel.app/" target="_blank" class="live-link">▶ Live App</a>
-        <a href="https://github.com/sarusarvesh993-cyber/Executive-AI-Business-Analyst" target="_blank" class="code-link">→ Code</a>
+      <div class="actions">
+        <a class="btn" href="${esc(j.apply_url)}" target="_blank" rel="noopener">Open original advert</a>
+        <button class="btn ghost" data-save="${j.id}" type="button">${s.saved?'Unsave':'Save'}</button>
       </div>
-    </div>
-
-    <div class="project-card reveal">
-      <div class="pc-icon">🔍</div>
-      <div class="pc-title">AI Web Research Agent</div>
-      <div class="pc-desc">An agentic workflow that takes a question, generates targeted search queries, fetches & reads webpages, handles blocked sources, and returns a structured research report with citations and a "what I couldn't verify" section.</div>
-      <div class="pc-tags"><span>Python</span><span>Streamlit</span><span>DuckDuckGo</span><span>Trafilatura</span></div>
-      <div class="pc-links">
-        <a href="https://ai-web-research-agent-ejn5mec3hkf7pn58hf5ck8.streamlit.app/" target="_blank" class="live-link">▶ Live App</a>
-        <a href="https://github.com/sarusarvesh993-cyber/AI-Web-Research-Agent" target="_blank" class="code-link">→ Code</a>
+      <div class="statusbar">
+        <span class="muted">Application status</span>
+        <select data-status="${j.id}">
+          ${['Not started','Saved for later','Tailoring CV','Applied','Recruiter screen','Interview','Rejected','Offer'].map(o=>`<option ${s.status===o?'selected':''}>${o}</option>`).join('')}
+        </select>
+        <input type="text" data-note="${j.id}" placeholder="next action / contact / follow-up date" value="${esc(s.notes)}" style="flex:1;min-width:190px">
       </div>
-    </div>
+      <details>
+        <summary>Why this score &mdash; evidence, gaps and unknowns</summary>
+        <div class="detail">
+          <p>${esc(j.notes)}</p>
+          ${j.caution?`<p class="muted" style="margin-top:6px"><b>Caution:</b> ${esc(j.caution)}</p>`:''}
+          <h5>Score components</h5>
+          ${comp}
+          <p class="muted" style="margin-top:7px">${esc(j.experience_note)} &middot; seniority wording in ad: ${esc(j.seniority_stated)}</p>
+          ${j.flags.length?`<h5>Flags</h5><ul>${j.flags.map(f=>`<li>${esc(f)}</li>`).join('')}</ul>`:''}
+          <h5>Matched: requirements your CV already evidences</h5>${li(j.matched)}
+          ${j.partial.length?`<h5>Partial or adjacent</h5>${li(j.partial)}`:''}
+          <h5>Gaps: named as required, not in your CV</h5>${li(j.gaps)}
+          <h5>Unknown: CV is silent, advert not firm</h5>${li(j.unknown)}
+          <h5>Verification</h5><p>${esc(j.verification)} Source: ${esc(j.source)}.</p>
+        </div>
+      </details>
+    </div>`;
+  }).join('') || '<div class="panel">No roles match these filters.</div>';
 
-    <div class="project-card reveal">
-      <div class="pc-icon">🎯</div>
-      <div class="pc-title">AI Job Application Agent</div>
-      <div class="pc-desc">Upload a resume + paste a job description → get a structured workflow: match score, skill-gap analysis, tailored cover letter, interview prep, and a 7-day action plan.</div>
-      <div class="pc-tags"><span>Python</span><span>Streamlit</span><span>pypdf</span><span>python-docx</span></div>
-      <div class="pc-links">
-        <a href="https://ai-job-application-agent-g9ydk6v4hh7upp7dhxajxp.streamlit.app/" target="_blank" class="live-link">▶ Live App</a>
-        <a href="https://github.com/sarusarvesh993-cyber/AI-Job-Application-Agent" target="_blank" class="code-link">→ Code</a>
-      </div>
-    </div>
-
-    <div class="project-card reveal">
-      <div class="pc-icon">📄</div>
-      <div class="pc-title">PDF Chat Agent (RAG)</div>
-      <div class="pc-desc">A retrieval-augmented generation system for private document intelligence. Chat with your own PDFs — grounded answers, not hallucinations. The project that started my AI Engineer journey.</div>
-      <div class="pc-tags"><span>Python</span><span>RAG</span><span>Embeddings</span><span>LLM</span></div>
-      <div class="pc-links">
-        <a href="https://github.com/sarusarvesh993-cyber" target="_blank" class="live-link">→ View on GitHub</a>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- SKILLS -->
-<section id="skills">
-  <div class="inner">
-    <div class="sec-label reveal">Technical Stack</div>
-    <h2 class="sec-title reveal">Skills & <span class="grad">Expertise</span></h2>
-    <p class="sec-sub reveal">From LLMs and full-stack to data engineering and cloud deployment.</p>
-    <div class="skills-grid">
-      <div class="skill-cat reveal">
-        <h3>🤖 AI & LLM Engineering</h3>
-        <div class="skill-item"><div class="skill-name"><span>LLMs & Prompt Engineering</span><span>92%</span></div><div class="skill-bar"><div class="skill-fill" data-width="92%"></div></div></div>
-        <div class="skill-item"><div class="skill-name"><span>Agentic AI</span><span>85%</span></div><div class="skill-bar"><div class="skill-fill" data-width="85%"></div></div></div>
-        <div class="skill-item"><div class="skill-name"><span>RAG & Retrieval</span><span>83%</span></div><div class="skill-bar"><div class="skill-fill" data-width="83%"></div></div></div>
-      </div>
-      <div class="skill-cat reveal">
-        <h3>💻 Full-Stack & Backend</h3>
-        <div class="skill-item"><div class="skill-name"><span>Python</span><span>90%</span></div><div class="skill-bar"><div class="skill-fill" data-width="90%"></div></div></div>
-        <div class="skill-item"><div class="skill-name"><span>FastAPI</span><span>80%</span></div><div class="skill-bar"><div class="skill-fill" data-width="80%"></div></div></div>
-        <div class="skill-item"><div class="skill-name"><span>Next.js / React</span><span>82%</span></div><div class="skill-bar"><div class="skill-fill" data-width="82%"></div></div></div>
-      </div>
-      <div class="skill-cat reveal">
-        <h3>☁️ Cloud & DevOps</h3>
-        <div class="skill-item"><div class="skill-name"><span>Docker</span><span>80%</span></div><div class="skill-bar"><div class="skill-fill" data-width="80%"></div></div></div>
-        <div class="skill-item"><div class="skill-name"><span>Kubernetes / Terraform</span><span>72%</span></div><div class="skill-bar"><div class="skill-fill" data-width="72%"></div></div></div>
-        <div class="skill-item"><div class="skill-name"><span>Vercel / Render</span><span>85%</span></div><div class="skill-bar"><div class="skill-fill" data-width="85%"></div></div></div>
-      </div>
-      <div class="skill-cat reveal">
-        <h3>📊 Data & Analytics</h3>
-        <div class="skill-item"><div class="skill-name"><span>SQL</span><span>85%</span></div><div class="skill-bar"><div class="skill-fill" data-width="85%"></div></div></div>
-        <div class="skill-item"><div class="skill-name"><span>Data Extraction & ETL</span><span>87%</span></div><div class="skill-bar"><div class="skill-fill" data-width="87%"></div></div></div>
-        <div class="skill-item"><div class="skill-name"><span>Power BI</span><span>88%</span></div><div class="skill-bar"><div class="skill-fill" data-width="88%"></div></div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- EXPERIENCE -->
-<section id="experience">
-  <div class="sec-label reveal">Work History</div>
-  <h2 class="sec-title reveal">Professional <span class="grad">Experience</span></h2>
-  <div class="timeline">
-    <div class="tl-item reveal">
-      <div class="tl-dot"></div>
-      <div class="tl-date">Jun 2026 – Present</div>
-      <h3>AI Engineer (Build in Public)</h3>
-      <div class="tl-company">Self-Initiated Projects — Remote</div>
-      <ul>
-        <li>Designed & deployed 5 production-style AI systems including OpsPilot v2 (DevSecOps AI Copilot), a full-stack AI app, agentic research agent, workflow agent, and RAG document chat</li>
-        <li>Built OpsPilot on Next.js 14 with multi-provider LLM routing, Docker build under 120MB, server-side API isolation, and hydration-safe rendering</li>
-        <li>Engineered full-stack architecture: React/Tailwind frontend, FastAPI backend, secure deployment on Vercel + Render</li>
-      </ul>
-    </div>
-    <div class="tl-item reveal">
-      <div class="tl-dot"></div>
-      <div class="tl-date">Dec 2025 – Present</div>
-      <h3>AI / Data Analyst (LLM)</h3>
-      <div class="tl-company">Innodata — Remote</div>
-      <ul>
-        <li>Engineered 200+ prompts for LLM training pipelines, achieving 30% improvement in model response accuracy</li>
-        <li>Annotated 5,000+ AI outputs for RLHF workflows, reducing labeling error rates by 25%</li>
-        <li>Automated data validation with SQL, resolving 120+ inconsistencies and improving report speed by 25%</li>
-      </ul>
-    </div>
-    <div class="tl-item reveal">
-      <div class="tl-dot"></div>
-      <div class="tl-date">Jul 2025 – Oct 2025</div>
-      <h3>Revenue Analyst</h3>
-      <div class="tl-company">LearnTechzo — Bengaluru</div>
-      <ul>
-        <li>Analyzed 20,000+ sales records to surface revenue trends, churn signals, and high-value segments</li>
-        <li>Built AI-assisted forecasting models that reduced revenue discrepancy by 30%</li>
-        <li>Designed Power BI dashboards tracking 8–12 KPIs, reducing manual reporting by 40%</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="inner">
-    <div class="sec-label reveal">Get In Touch</div>
-    <h2 class="sec-title reveal">Let's Build Something <span class="grad">With AI</span></h2>
-    <p class="sec-sub reveal" style="margin:1rem auto 0;">Actively looking for AI Engineer / Data Engineer roles. Hiring? Building AI? Let's connect.</p>
-    <div class="contact-links reveal">
-      <a href="/cdn-cgi/l/email-protection#f49f9b999995839586c1c3b49399959d98da979b99" class="contact-link">📧 Email</a>
-      <a href="https://www.linkedin.com/in/sarvesh-kommawar-3b166b278/" target="_blank" class="contact-link">💼 LinkedIn</a>
-      <a href="https://github.com/sarusarvesh993-cyber" target="_blank" class="contact-link">💻 GitHub</a>
-      <a href="tel:+918096047347" class="contact-link">📱 Call</a>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <p>© 2026 Sarvesh Kommawar · AI & Data Engineer · Built with Three.js + GSAP · Telangana, India</p>
-</footer>
-
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-/* ============ LOADER ============ */
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    const l = document.getElementById('loader');
-    l.style.opacity = '0';
-    setTimeout(() => l.style.display = 'none', 800);
-    animateHero();
-  }, 600);
-});
-
-/* ============ 3D BACKGROUND (Three.js particle network) ============ */
-let scene, camera, renderer, particles, particleGeo, lines, wireShape, innerShape, coreShape;
-let mouseX = 0, mouseY = 0;
-const PARTICLE_COUNT = 90;
-const MAX_DIST = 140;
-
-function init3D(){
-  const canvas = document.getElementById('bg-canvas');
-  scene = new THREE.Scene();
-  camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-  camera.position.z = 400;
-
-  renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true});
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-  // Particles
-  particleGeo = new THREE.BufferGeometry();
-  const positions = new Float32Array(PARTICLE_COUNT * 3);
-  for(let i=0;i<PARTICLE_COUNT*3;i++){
-    positions[i] = (Math.random()-0.5) * 800;
-  }
-  particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-
-  const pMat = new THREE.PointsMaterial({color:0x6C63FF, size:3.5, transparent:true, opacity:0.8});
-  particles = new THREE.Points(particleGeo, pMat);
-  scene.add(particles);
-
-  // Connection lines
-  const lineGeo = new THREE.BufferGeometry();
-  const linePositions = new Float32Array(PARTICLE_COUNT * PARTICLE_COUNT * 6);
-  lineGeo.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
-  const lineMat = new THREE.LineBasicMaterial({color:0x00D4FF, transparent:true, opacity:0.15});
-  lines = new THREE.LineSegments(lineGeo, lineMat);
-  scene.add(lines);
-
-  // ===== HERO 3D ROTATING WIREFRAME SHAPES =====
-  // Outer icosahedron (cyan)
-  const wireGeo = new THREE.IcosahedronGeometry(180, 1);
-  const wireMat = new THREE.MeshBasicMaterial({color:0x00D4FF, wireframe:true, transparent:true, opacity:0.32});
-  wireShape = new THREE.Mesh(wireGeo, wireMat);
-  scene.add(wireShape);
-
-  // Inner octahedron (purple) counter-rotating
-  const innerGeo = new THREE.OctahedronGeometry(105, 0);
-  const innerMat = new THREE.MeshBasicMaterial({color:0x6C63FF, wireframe:true, transparent:true, opacity:0.4});
-  innerShape = new THREE.Mesh(innerGeo, innerMat);
-  scene.add(innerShape);
-
-  // Glowing core (neon green)
-  const coreGeo = new THREE.IcosahedronGeometry(48, 0);
-  const coreMat = new THREE.MeshBasicMaterial({color:0x00ff88, wireframe:true, transparent:true, opacity:0.55});
-  coreShape = new THREE.Mesh(coreGeo, coreMat);
-  scene.add(coreShape);
-
-  animate3D();
-  window.addEventListener('resize', onResize);
-  document.addEventListener('mousemove', e => {
-    mouseX = (e.clientX/window.innerWidth - 0.5);
-    mouseY = (e.clientY/window.innerHeight - 0.5);
+  document.querySelectorAll('[data-save]').forEach(b=>b.onclick=()=>{
+    const s=S(b.dataset.save); s.saved=!s.saved; save(); render();
+  });
+  document.querySelectorAll('[data-status]').forEach(sel=>sel.onchange=()=>{
+    S(sel.dataset.status).status=sel.value; save(); render();
+  });
+  document.querySelectorAll('[data-note]').forEach(inp=>inp.onchange=()=>{
+    S(inp.dataset.note).notes=inp.value; save();
   });
 }
 
-function animate3D(){
-  requestAnimationFrame(animate3D);
-  particles.rotation.y += 0.0008;
-  particles.rotation.x += 0.0004;
+['q','fstatus','femirate','ffamily','ffit','fsaved'].forEach(id=>{
+  const el=document.getElementById(id);
+  el.addEventListener(id==='q'?'input':'change',render);
+});
+document.getElementById('resetBtn').onclick=()=>{
+  document.getElementById('q').value='';
+  document.getElementById('fstatus').value='';
+  document.getElementById('femirate').value='';
+  document.getElementById('ffamily').value='';
+  document.getElementById('ffit').value=0;
+  document.getElementById('fsaved').value='';
+  render();
+};
 
-  // camera parallax with mouse
-  camera.position.x += (mouseX * 80 - camera.position.x) * 0.04;
-  camera.position.y += (-mouseY * 80 - camera.position.y) * 0.04;
-  camera.lookAt(scene.position);
+document.getElementById('atsTable').innerHTML = ATS.checks.map(c=>
+  `<tr><td style="width:250px">${esc(c[0])}</td><td class="${c[1]}" style="width:80px">${c[1]}</td><td class="ev">${esc(c[2])}</td></tr>`).join('');
+document.getElementById('showAts').onclick=()=>{
+  document.getElementById('atsBox').classList.toggle('hidden');
+};
 
-  // ===== ROTATE HERO SHAPES =====
-  if(wireShape){
-    wireShape.rotation.x += 0.0025;
-    wireShape.rotation.y += 0.004;
-    innerShape.rotation.x -= 0.004;
-    innerShape.rotation.y -= 0.006;
-    innerShape.rotation.z += 0.002;
-    coreShape.rotation.x += 0.006;
-    coreShape.rotation.y -= 0.005;
-    // gentle breathing pulse on core
-    const s = 1 + Math.sin(Date.now()*0.0012)*0.12;
-    coreShape.scale.set(s,s,s);
-  }
-
-  // update connection lines
-  const pos = particleGeo.attributes.position.array;
-  const linePos = lines.geometry.attributes.position.array;
-  let vertex = 0;
-  for(let i=0;i<PARTICLE_COUNT;i++){
-    for(let j=i+1;j<PARTICLE_COUNT;j++){
-      const dx = pos[i*3] - pos[j*3];
-      const dy = pos[i*3+1] - pos[j*3+1];
-      const dz = pos[i*3+2] - pos[j*3+2];
-      const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
-      if(dist < MAX_DIST){
-        linePos[vertex++] = pos[i*3];
-        linePos[vertex++] = pos[i*3+1];
-        linePos[vertex++] = pos[i*3+2];
-        linePos[vertex++] = pos[j*3];
-        linePos[vertex++] = pos[j*3+1];
-        linePos[vertex++] = pos[j*3+2];
-      }
-    }
-  }
-  lines.geometry.setDrawRange(0, vertex/3);
-  lines.geometry.attributes.position.needsUpdate = true;
-
-  renderer.render(scene, camera);
+function dl(name,text,type){
+  const b=new Blob([text],{type});const a=document.createElement('a');
+  a.href=URL.createObjectURL(b);a.download=name;a.click();URL.revokeObjectURL(a.href);
 }
+document.getElementById('exportCsv').onclick=()=>{
+  const head=['id','title','company','emirate','fit','band','my_status','saved','notes','apply_url'];
+  const rows=JOBS.map(j=>{const s=store[j.id]||{};
+    return [j.id,j.title,j.company,j.emirate,j.fit,j.band,s.status||'Not started',s.saved?'yes':'no',(s.notes||''),j.apply_url]
+      .map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',');});
+  dl('job_tracker_2026-10-26.csv',[head.join(','),...rows].join('\n'),'text/csv');
+};
+document.getElementById('exportJson').onclick=()=>dl('job_tracker_backup.json',JSON.stringify(store,null,1),'application/json');
 
-function onResize(){
-  camera.aspect = window.innerWidth/window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-}
-
-/* ============ HERO ANIMATION (GSAP) ============ */
-function animateHero(){
-  init3D();
-  gsap.from('.hero-badge', {y:30, opacity:0, duration:0.8, delay:0.2});
-  gsap.from('#hero h1', {y:40, opacity:0, duration:1, delay:0.4});
-  gsap.from('.hero-sub', {y:30, opacity:0, duration:0.8, delay:0.7});
-  gsap.from('.hero-btns', {y:30, opacity:0, duration:0.8, delay:0.9});
-  gsap.from('.stat', {y:30, opacity:0, duration:0.6, delay:1.1, stagger:0.15});
-
-  // count-up stats
-  document.querySelectorAll('[data-count]').forEach(el => {
-    const target = +el.dataset.count;
-    gsap.to({val:0}, {
-      val:target, duration:1.5, delay:1.2, ease:'power2.out',
-      onUpdate: function(){ el.textContent = Math.floor(this.targets()[0].val); }
-    });
-  });
-}
-
-/* ============ SCROLL REVEAL (GSAP ScrollTrigger) ============ */
-gsap.registerPlugin(ScrollTrigger);
-ScrollTrigger.batch('.reveal', {
-  start: 'top 85%',
-  onEnter: batch => gsap.to(batch, {opacity:1, y:0, duration:0.9, stagger:0.12, ease:'power3.out'})
-});
-
-// Skill bars fill on scroll
-ScrollTrigger.create({
-  trigger:'#skills', start:'top 75%',
-  onEnter: () => {
-    document.querySelectorAll('.skill-fill').forEach(f => { f.style.width = f.dataset.width; });
-  }
-});
-
-/* ============ NAVBAR SHRINK ============ */
-window.addEventListener('scroll', () => {
-  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
-});
-
-/* ============ 3D TILT CARDS ============ */
-document.querySelectorAll('.project-card').forEach(card => {
-  card.addEventListener('mousemove', e => {
-    const r = card.getBoundingClientRect();
-    const x = e.clientX - r.left;
-    const y = e.clientY - r.top;
-    const cx = r.width/2, cy = r.height/2;
-    const rotateY = ((x - cx)/cx) * 10;
-    const rotateX = -((y - cy)/cy) * 10;
-    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
-    card.style.setProperty('--mx', (x/r.width*100)+'%');
-    card.style.setProperty('--my', (y/r.height*100)+'%');
-  });
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
-  });
-});
-
-/* ============ CUSTOM CURSOR + GLOW TRAIL ============ */
-(function(){
-  if(!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return; // skip on touch
-  const dot = document.getElementById('cursorDot');
-  const ring = document.getElementById('cursorRing');
-  let cx=0, cy=0, rx=0, ry=0;
-  let trailCount = 0;
-  const trailColors = ['#00D4FF','#6C63FF','#00ff88'];
-
-  document.addEventListener('mousemove', e => {
-    cx = e.clientX; cy = e.clientY;
-    dot.style.transform = `translate(${cx}px, ${cy}px)`;
-    if(trailCount++ % 2 === 0) spawnTrail(cx, cy);
-  });
-
-  function ringLoop(){
-    rx += (cx - rx) * 0.18;
-    ry += (cy - ry) * 0.18;
-    ring.style.transform = `translate(${rx}px, ${ry}px)`;
-    requestAnimationFrame(ringLoop);
-  }
-  ringLoop();
-
-  document.querySelectorAll('a,button,.project-card,.btn,.contact-link,.nav-links a').forEach(el => {
-    el.addEventListener('mouseenter', () => ring.classList.add('hover'));
-    el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
-  });
-
-  function spawnTrail(x, y){
-    const t = document.createElement('div');
-    t.className = 'trail';
-    const size = Math.random()*5 + 3;
-    const col = trailColors[Math.floor(Math.random()*trailColors.length)];
-    t.style.width = size+'px';
-    t.style.height = size+'px';
-    t.style.background = col;
-    t.style.boxShadow = '0 0 8px '+col;
-    t.style.left = (x - size/2)+'px';
-    t.style.top = (y - size/2)+'px';
-    t.style.opacity = '0.85';
-    t.style.transform = 'scale(1)';
-    t.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
-    document.body.appendChild(t);
-    requestAnimationFrame(() => {
-      t.style.opacity = '0';
-      t.style.transform = 'scale(0.2)';
-      t.style.left = (x - size/2 + (Math.random()-0.5)*40)+'px';
-      t.style.top = (y - size/2 + (Math.random()-0.5)*40)+'px';
-    });
-    setTimeout(() => t.remove(), 650);
-  }
-})();
-</script>
-
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a204a7a159a87f37',t:'MTc4NDkxNDI0Nw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
-</html>
+render();
+</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a507e3e72bc3f242',t:'MTc5MzAwMTIzNw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body></html>
